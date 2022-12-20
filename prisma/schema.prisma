@@ -1,0 +1,59 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Colaborador {
+  uuid         String    @id @default(uuid())
+  nomeCompleto String
+  cpf          String    @unique
+  isAtivo      Boolean
+  Cliente      Cliente[]
+}
+
+model Cliente {
+  uuid                  String                  @id @default(uuid())
+  nomeCompleto          String
+  cpf                   String                  @unique
+  isAtivo               Boolean
+  colaborador           Colaborador             @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid      String
+  EnderecoCliente       EnderecoCliente[]
+  DPessoaisCliente      DPessoaisCliente[]
+  DadosBancariosCliente DadosBancariosCliente[]
+}
+
+model EnderecoCliente {
+  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
+  cliente_uuid String  @id
+  endereco     String
+  rua          String
+  bairro       String
+  cidade       String
+  estado       String
+  cep          String
+  pais         String
+}
+
+model DPessoaisCliente {
+  cliente      Cliente  @relation(fields: [cliente_uuid], references: [uuid])
+  cliente_uuid String   @id
+  nascimento   DateTime
+  sexo         String
+  rg           String   @unique
+  dataEmissao  DateTime
+  oExpedidor   String
+  eCivel       String
+}
+
+model DadosBancariosCliente {
+  cc           String
+  cp           String
+  agencia      String
+  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
+  cliente_uuid String  @id
+}
