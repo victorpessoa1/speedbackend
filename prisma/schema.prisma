@@ -2,26 +2,106 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator erd {
+  provider = "prisma-erd-generator"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Colaborador {
-  uuid         String    @id @default(uuid())
+  uuid         String  @id @default(uuid())
   nomeCompleto String
-  cpf          String    @unique
+  cpf          String  @unique
   isAtivo      Boolean
-  Cliente      Cliente[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Cliente                Cliente[]
+  EnderecoColaborador    EnderecoColaborador[]
+  DPessoaisColaborador   DPessoaisColaborador[]
+  colaborador_has_funcao colaborador_has_funcao[]
+  Equipe                 Equipe[]
+}
+
+model EnderecoColaborador {
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String      @id
+  endereco         String
+  rua              String
+  bairro           String
+  cidade           String
+  estado           String
+  cep              String
+  pais             String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DPessoaisColaborador {
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String      @id
+  nascimento       DateTime
+  sexo             String
+  rg               String      @unique
+  dataEmissao      DateTime
+  oExpedidor       String
+  eCivel           String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Equipe    Equipe[]
+}
+
+model Equipe {
+  colaborador          Colaborador          @relation(fields: [lider], references: [uuid])
+  dPessoaisColaborador DPessoaisColaborador @relation(fields: [vendedor], references: [colaborador_uuid])
+  lider                String
+  vendedor             String
+  idEquipe             String               @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Funcao {
+  uuid String @id @default(uuid())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  descricao String
+
+  colaborador_has_funcao colaborador_has_funcao[]
+}
+
+model colaborador_has_funcao {
+  uuid String @id @default(uuid())
+
+  colaborador     Colaborador @relation(fields: [colaboradorUuid], references: [uuid])
+  colaboradorUuid String
+  funcao          Funcao      @relation(fields: [funcaoUuid], references: [uuid])
+  funcaoUuid      String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Cliente {
-  uuid                  String                  @id @default(uuid())
-  nomeCompleto          String
-  cpf                   String                  @unique
-  isAtivo               Boolean
-  colaborador           Colaborador             @relation(fields: [colaborador_uuid], references: [uuid])
-  colaborador_uuid      String
+  uuid             String      @id @default(uuid())
+  nomeCompleto     String
+  cpf              String      @unique
+  isAtivo          Boolean
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   EnderecoCliente       EnderecoCliente[]
   DPessoaisCliente      DPessoaisCliente[]
   DadosBancariosCliente DadosBancariosCliente[]
@@ -37,6 +117,9 @@ model EnderecoCliente {
   estado       String
   cep          String
   pais         String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DPessoaisCliente {
@@ -48,6 +131,9 @@ model DPessoaisCliente {
   dataEmissao  DateTime
   oExpedidor   String
   eCivel       String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model DadosBancariosCliente {
@@ -56,4 +142,7 @@ model DadosBancariosCliente {
   agencia      String
   cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
   cliente_uuid String  @id
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
