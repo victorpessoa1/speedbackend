@@ -17,8 +17,8 @@ model Colaborador {
   cpf          String  @unique
   isAtivo      Boolean
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Cliente                Cliente[]
   EnderecoColaborador    EnderecoColaborador[]
@@ -39,8 +39,8 @@ model EnderecoColaborador {
   cep              String
   pais             String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DPessoaisColaborador {
@@ -53,9 +53,9 @@ model DPessoaisColaborador {
   oExpedidor       String
   eCivel           String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Equipe    Equipe[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  Equipe     Equipe[]
 }
 
 model Equipe {
@@ -65,15 +65,15 @@ model Equipe {
   vendedor             String
   idEquipe             String               @id @default(uuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Funcao {
   uuid String @id @default(uuid())
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   descricao String
 
@@ -83,13 +83,13 @@ model Funcao {
 model colaborador_has_funcao {
   uuid String @id @default(uuid())
 
-  colaborador     Colaborador @relation(fields: [colaboradorUuid], references: [uuid])
-  colaboradorUuid String
-  funcao          Funcao      @relation(fields: [funcaoUuid], references: [uuid])
-  funcaoUuid      String
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String
+  funcao           Funcao      @relation(fields: [funcao_uuid], references: [uuid])
+  funcao_uuid      String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Cliente {
@@ -97,11 +97,11 @@ model Cliente {
   nomeCompleto     String
   cpf              String      @unique
   isAtivo          Boolean
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
   colaborador_uuid String
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   EnderecoCliente       EnderecoCliente[]
   DPessoaisCliente      DPessoaisCliente[]
@@ -120,8 +120,8 @@ model EnderecoCliente {
   cep          String
   pais         String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DPessoaisCliente {
@@ -134,8 +134,8 @@ model DPessoaisCliente {
   oExpedidor   String
   eCivel       String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DadosBancariosCliente {
@@ -145,16 +145,16 @@ model DadosBancariosCliente {
   cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
   cliente_uuid String  @id
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model TipoConsorcio {
   id        Int    @id @default(autoincrement())
   descricao String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Contrato Contrato[]
 }
@@ -173,8 +173,8 @@ model Contrato {
   modelo           String
   isAtivo          Boolean
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Boleto       Boleto[]
   Contemplacao Contemplacao[]
@@ -188,8 +188,8 @@ model Financeira {
   Gerente       String
   Email         String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   Boleto Boleto[]
 }
@@ -206,8 +206,8 @@ model Boleto {
   valor      Float
   vencimento DateTime
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model Contemplacao {
@@ -219,6 +219,6 @@ model Contemplacao {
   Contrato  Contrato @relation(fields: [nContrato], references: [nContrato])
   nContrato Int
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
