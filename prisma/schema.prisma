@@ -25,6 +25,7 @@ model Colaborador {
   DPessoaisColaborador   DPessoaisColaborador[]
   colaborador_has_funcao colaborador_has_funcao[]
   Equipe                 Equipe[]
+  Contrato               Contrato[]
 }
 
 model EnderecoColaborador {
@@ -105,6 +106,7 @@ model Cliente {
   EnderecoCliente       EnderecoCliente[]
   DPessoaisCliente      DPessoaisCliente[]
   DadosBancariosCliente DadosBancariosCliente[]
+  Contrato              Contrato[]
 }
 
 model EnderecoCliente {
@@ -142,6 +144,80 @@ model DadosBancariosCliente {
   agencia      String
   cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
   cliente_uuid String  @id
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TipoConsorcio {
+  id        Int    @id @default(autoincrement())
+  descricao String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Contrato Contrato[]
+}
+
+model Contrato {
+  nContrato        Int           @id
+  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid])
+  cliente_uuid     String
+  colaborador      Colaborador   @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String
+  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id])
+  tipoConsorcio_id Int
+  data             DateTime
+  vencimento       Int
+  valorBem         Float
+  modelo           String
+  isAtivo          Boolean
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Boleto       Boleto[]
+  Contemplacao Contemplacao[]
+}
+
+model Financeira {
+  financeira_id Int    @id @default(autoincrement())
+  cnpj          String @unique
+  razaoSocial   String @unique
+  contrato      String @unique
+  Gerente       String
+  Email         String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  Boleto Boleto[]
+}
+
+model Boleto {
+  boletos_id Int @id @default(autoincrement())
+
+  Contrato      Contrato   @relation(fields: [nContrato], references: [nContrato])
+  nContrato     Int
+  Financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id])
+  financeira_id Int
+
+  parcela    Float
+  valor      Float
+  vencimento DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contemplacao {
+  contemplacao_id  Int      @id @default(autoincrement())
+  tipoContemplacao String
+  data             DateTime
+  lance            Float
+
+  Contrato  Contrato @relation(fields: [nContrato], references: [nContrato])
+  nContrato Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
