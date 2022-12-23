@@ -26,6 +26,16 @@ model Colaborador {
   colaborador_has_funcao colaborador_has_funcao[]
   Equipe                 Equipe[]
   Contrato               Contrato[]
+  login                  login[]
+}
+
+model login {
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador_uuid String      @id
+  autorizado       Int
+  email            String
+  senha            String
+  acesso           Int
 }
 
 model EnderecoColaborador {
@@ -52,6 +62,8 @@ model DPessoaisColaborador {
   dataEmissao      DateTime
   oExpedidor       String
   eCivel           String
+  telefone         String
+  email            String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -133,6 +145,8 @@ model DPessoaisCliente {
   dataEmissao  DateTime
   oExpedidor   String
   eCivel       String
+  telefone     String
+  email        String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
