@@ -30,16 +30,16 @@ model Colaborador {
 }
 
 model login {
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String      @id
-  autorizado       Int
-  email            String
+  autorizado       Boolean
+  email            String      @unique
   senha            String
   acesso           Int
 }
 
 model EnderecoColaborador {
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String      @id
   endereco         String
   rua              String
@@ -54,7 +54,7 @@ model EnderecoColaborador {
 }
 
 model DPessoaisColaborador {
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String      @id
   nascimento       DateTime
   sexo             String
@@ -62,8 +62,6 @@ model DPessoaisColaborador {
   dataEmissao      DateTime
   oExpedidor       String
   eCivel           String
-  telefone         String
-  email            String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -95,7 +93,7 @@ model Funcao {
 model colaborador_has_funcao {
   uuid String @id @default(uuid())
 
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String
   funcao           Funcao      @relation(fields: [funcao_uuid], references: [uuid])
   funcao_uuid      String
@@ -110,7 +108,7 @@ model Cliente {
   cpf              String      @unique
   isAtivo          Boolean
   colaborador_uuid String
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

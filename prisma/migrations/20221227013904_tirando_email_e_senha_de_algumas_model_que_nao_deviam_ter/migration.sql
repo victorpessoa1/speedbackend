@@ -11,6 +11,17 @@ CREATE TABLE "Colaborador" (
 );
 
 -- CreateTable
+CREATE TABLE "login" (
+    "colaborador_uuid" TEXT NOT NULL,
+    "autorizado" INTEGER NOT NULL,
+    "email" TEXT NOT NULL,
+    "senha" TEXT NOT NULL,
+    "acesso" INTEGER NOT NULL,
+
+    CONSTRAINT "login_pkey" PRIMARY KEY ("colaborador_uuid")
+);
+
+-- CreateTable
 CREATE TABLE "EnderecoColaborador" (
     "colaborador_uuid" TEXT NOT NULL,
     "endereco" TEXT NOT NULL,
@@ -111,6 +122,8 @@ CREATE TABLE "DPessoaisCliente" (
     "dataEmissao" TIMESTAMP(3) NOT NULL,
     "oExpedidor" TEXT NOT NULL,
     "eCivel" TEXT NOT NULL,
+    "telefone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
 
@@ -217,6 +230,9 @@ CREATE UNIQUE INDEX "Financeira_razaoSocial_key" ON "Financeira"("razaoSocial");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Financeira_contrato_key" ON "Financeira"("contrato");
+
+-- AddForeignKey
+ALTER TABLE "login" ADD CONSTRAINT "login_colaborador_uuid_fkey" FOREIGN KEY ("colaborador_uuid") REFERENCES "Colaborador"("uuid") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "EnderecoColaborador" ADD CONSTRAINT "EnderecoColaborador_colaborador_uuid_fkey" FOREIGN KEY ("colaborador_uuid") REFERENCES "Colaborador"("uuid") ON DELETE RESTRICT ON UPDATE CASCADE;

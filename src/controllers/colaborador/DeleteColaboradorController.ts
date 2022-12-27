@@ -9,7 +9,7 @@ export class DeleteColaboradorController {
     await prismaClient.colaborador.delete(
       {
         where: {
-          uuid: uuid
+          uuid
         }
       }
     )
