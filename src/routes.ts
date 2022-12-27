@@ -7,6 +7,8 @@ import { ReadClienteController } from "./controllers/cliente/ReadClienteControll
 import { DeleteClienteController } from "./controllers/cliente/DeleteClienteController";
 import { UpdateClienteController } from "./controllers/cliente/UpdateClienteController";
 import { UpdateColaboradorController } from './controllers/colaborador/UpdateColaboradorController';
+import { AuthColaboradorController } from './controllers/auth/AuthController';
+import { AuthMiddleware } from './middlewares/auth';
 
 const router = Router()
 
@@ -15,10 +17,13 @@ const readColaborador = new ReadColaboradorController
 const updateColaborador = new UpdateColaboradorController
 const deleteColaborador = new DeleteColaboradorController
 router.post("/cadastrarcolaborador", createColaborador.handle)
-router.get("/colaboradores", readColaborador.colaboradores)
+router.get("/colaboradores", AuthMiddleware, readColaborador.colaboradores)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
+
+const loginColaborador = new AuthColaboradorController
+router.post("/login", loginColaborador.autenticacao)
 
 const createCliente = new CreateClienteController   
 const readCliente = new ReadClienteController
