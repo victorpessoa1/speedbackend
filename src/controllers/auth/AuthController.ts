@@ -33,4 +33,18 @@ import process from 'process';
 
     return res.json({login:{colaborador_uuid, email }, token})
   }
+
+  async logout(req: Request, res: Response){
+    const {authorization} = req.headers
+    if(!authorization){
+      return res.status(401).json({"error": "Token não fornecido"})
+    }
+    const [, token] = authorization.split(" ")
+    const tokenExpirado = await prismaClient.blacklist.create({
+      data: {
+        tokenexpirado: token
+      }
+    })
+    res.status(200).json({"message": "usuario deslogado"});
+  }
 }

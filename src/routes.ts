@@ -11,21 +11,22 @@ import { AuthColaboradorController } from './controllers/auth/AuthController';
 import { AuthMiddleware } from './middlewares/auth';
 
 const router = Router()
+const createColaborador = new CreateColaboradorController
 
-const loginColaborador = new AuthColaboradorController
-router.post("/login", loginColaborador.autenticacao)
+const autenticacaoColaborador = new AuthColaboradorController
+router.post("/login", autenticacaoColaborador.autenticacao)
+router.post("/cadastrarcolaborador", createColaborador.handle)
 
 router.use(AuthMiddleware)
 
-const createColaborador = new CreateColaboradorController
 const readColaborador = new ReadColaboradorController
 const updateColaborador = new UpdateColaboradorController
 const deleteColaborador = new DeleteColaboradorController
-router.post("/cadastrarcolaborador", createColaborador.handle)
 router.get("/colaboradores", AuthMiddleware, readColaborador.colaboradores)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
+router.post("/logout", autenticacaoColaborador.logout)
 
 const createCliente = new CreateClienteController   
 const readCliente = new ReadClienteController

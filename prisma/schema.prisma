@@ -36,6 +36,16 @@ model login {
   email            String      @unique
   senha            String
   acesso           Int
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model blacklist {
+  tokenexpirado String @id
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model EnderecoColaborador {
