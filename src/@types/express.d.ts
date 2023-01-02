@@ -1,5 +1,5 @@
 declare namespace Express {
   export interface Request{
-    colaboradorUuid: string;
+    uuid: string;
   }
 }

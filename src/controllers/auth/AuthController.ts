@@ -2,6 +2,7 @@ import { compare, } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
+import process from 'process';
 
   export class AuthColaboradorController {
     async autenticacao(req: Request, res: Response) {
@@ -26,7 +27,7 @@ import { prismaClient } from '../../database/prismaClient';
         return res.json({error: "login invalido (senha invalida)"})
       }
 
-      const token = sign({uuid: login.colaborador_uuid}, "segredoSecreto", {expiresIn: "9h" })
+      const token = sign({uuid: login.colaborador_uuid}, process.env.SECRET ?? '', {expiresIn: "9h" })
     
       const  {colaborador_uuid} = login
 
