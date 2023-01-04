@@ -17,10 +17,21 @@ export async function AuthMiddleware(req: Request, res: Response, next: NextFunc
 
   const [, token] = authorization.split(" ")
   
-  const verificandoToken = await prismaClient.blacklist.findUnique({where: {tokenexpirado: token}})
-  if(verificandoToken) {
-    return res.status(401).json({"error": "Token expirado"})
-  }
+  try {
+
+      const verificandoToken = await prismaClient.blacklist.findUnique({where: {tokenexpirado: token}})
+
+      if(verificandoToken) {
+          return res.status(401).json({"error": "Token expirado"})
+      }
+  
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: "token invalido"
+      })
+    }
+  
 
   try {
     const tokenDecodificado = verify(token, process.env.SECRET ?? '')

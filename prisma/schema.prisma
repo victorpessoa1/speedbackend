@@ -79,8 +79,8 @@ model DPessoaisColaborador {
 }
 
 model Equipe {
-  colaborador          Colaborador          @relation(fields: [lider], references: [uuid])
-  dPessoaisColaborador DPessoaisColaborador @relation(fields: [vendedor], references: [colaborador_uuid])
+  colaborador          Colaborador          @relation(fields: [lider], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  dPessoaisColaborador DPessoaisColaborador @relation(fields: [vendedor], references: [colaborador_uuid], onDelete: Cascade, onUpdate: Cascade)
   lider                String
   vendedor             String
   idEquipe             String               @id @default(uuid())
@@ -105,7 +105,7 @@ model colaborador_has_funcao {
 
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String
-  funcao           Funcao      @relation(fields: [funcao_uuid], references: [uuid])
+  funcao           Funcao      @relation(fields: [funcao_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   funcao_uuid      String
 
   created_at DateTime @default(now())
@@ -130,7 +130,7 @@ model Cliente {
 }
 
 model EnderecoCliente {
-  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
+  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   cliente_uuid String  @id
   endereco     String
   rua          String
@@ -145,7 +145,7 @@ model EnderecoCliente {
 }
 
 model DPessoaisCliente {
-  cliente      Cliente  @relation(fields: [cliente_uuid], references: [uuid])
+  cliente      Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   cliente_uuid String   @id
   nascimento   DateTime
   sexo         String
@@ -164,7 +164,7 @@ model DadosBancariosCliente {
   cc           String
   cp           String
   agencia      String
-  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid])
+  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   cliente_uuid String  @id
 
   created_at DateTime @default(now())
@@ -183,11 +183,11 @@ model TipoConsorcio {
 
 model Contrato {
   nContrato        Int           @id
-  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid])
+  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   cliente_uuid     String
-  colaborador      Colaborador   @relation(fields: [colaborador_uuid], references: [uuid])
+  colaborador      Colaborador   @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id])
+  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
   tipoConsorcio_id Int
   data             DateTime
   vencimento       Int
@@ -219,9 +219,9 @@ model Financeira {
 model Boleto {
   boletos_id Int @id @default(autoincrement())
 
-  Contrato      Contrato   @relation(fields: [nContrato], references: [nContrato])
+  Contrato      Contrato   @relation(fields: [nContrato], references: [nContrato], onDelete: Cascade, onUpdate: Cascade)
   nContrato     Int
-  Financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id])
+  Financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: Cascade)
   financeira_id Int
 
   parcela    Float
@@ -238,7 +238,7 @@ model Contemplacao {
   data             DateTime
   lance            Float
 
-  Contrato  Contrato @relation(fields: [nContrato], references: [nContrato])
+  Contrato  Contrato @relation(fields: [nContrato], references: [nContrato], onDelete: Cascade, onUpdate: Cascade)
   nContrato Int
 
   created_at DateTime @default(now())

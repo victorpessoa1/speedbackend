@@ -5,23 +5,41 @@ export class ReadColaboradorController {
   
   async colaboradores(req: Request, res: Response) {
   
-  const colaboradores = await prismaClient.colaborador.findMany()
+    try {
+
+      const colaboradores = await prismaClient.colaborador.findMany()
   
-  return res.json(colaboradores)
+      return res.status(200).json(colaboradores)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao procurar colaboradores'
+    })
   }
+}
 
 
   async colaborador(req: Request, res: Response) {
     const {uuid} = req.params
+    try {
+      const colaborador = await prismaClient.colaborador.findUnique({
+        where: {
+          uuid
+        }
+      })
     
-    const colaborador = await prismaClient.colaborador.findUnique({
-      where: {
-        uuid
+      if (colaborador == null) {
+        return res.status(404).json({message: "Colaborador não encontrado"})
       }
-    })
-    
-    return res.json(colaborador)
-  }
-  
 
+    return res.status(200).json(colaborador)
+
+    } catch (error) {
+      return res.status(400).json({
+        error: error,
+        message: 'Colaborador não encontrado'
+      })
+    } 
+  }
 }
