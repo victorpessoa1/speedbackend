@@ -1,18 +1,18 @@
 import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class DeleteClienteController {
+export class DeleteAgendaClienteController {
 
   async delete(req: Request, res: Response) {
     
     const {uuid} = req.params
     if (!uuid) {
-      return res.status(400).json({ message: "cliente inválido"})
+      return res.status(400).json({ message: "uuid invalido"})
     }
     
     try {
 
-      await prismaClient.cliente.delete(
+      await prismaClient.agendaCliente.delete(
       {
         where: {
           uuid

@@ -1,12 +1,12 @@
 import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class ReadClienteController {
+export class ReadAgendaClienteController {
   
-  async clientes(req: Request, res: Response) {
+  async exibirClientes(req: Request, res: Response) {
 
     try {
-      const clientes = await prismaClient.cliente.findMany()
+      const clientes = await prismaClient.agendaCliente.findMany()
   
       return res.status(200).json(clientes)
 
@@ -20,12 +20,12 @@ export class ReadClienteController {
   }
 
 
-  async cliente(req: Request, res: Response) {
-    const {cpf} = req.body
+  async exibirCliente(req: Request, res: Response) {
+    const {uuid} = req.params
     try {
-      const cliente = await prismaClient.cliente.findUnique({
+      const cliente = await prismaClient.agendaCliente.findUnique({
         where: {
-          cpf
+          uuid
         }
       })
     

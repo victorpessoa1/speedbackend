@@ -27,6 +27,7 @@ model Colaborador {
   Equipe                 Equipe[]
   Contrato               Contrato[]
   login                  login[]
+  agendaCliente          agendaCliente[]
 }
 
 model login {
@@ -155,6 +156,18 @@ model DPessoaisCliente {
   eCivel       String
   telefone     String
   email        String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model agendaCliente {
+  uuid             String      @id @default(uuid())
+  cliente          String
+  numero           String      @unique
+  interesse        String
+  colaborador_uuid String
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
