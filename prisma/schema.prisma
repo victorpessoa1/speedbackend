@@ -20,14 +20,15 @@ model Colaborador {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Cliente                Cliente[]
-  EnderecoColaborador    EnderecoColaborador[]
-  DPessoaisColaborador   DPessoaisColaborador[]
-  colaborador_has_funcao colaborador_has_funcao[]
-  Equipe                 Equipe[]
-  Contrato               Contrato[]
-  login                  login[]
-  agendaCliente          agendaCliente[]
+  Cliente                   Cliente[]
+  EnderecoColaborador       EnderecoColaborador[]
+  DPessoaisColaborador      DPessoaisColaborador[]
+  colaborador_has_funcao    colaborador_has_funcao[]
+  colaborador_has_permissao Colaborador_has_permissao[]
+  Equipe                    Equipe[]
+  Contrato                  Contrato[]
+  login                     login[]
+  agendaCliente             agendaCliente[]
 }
 
 model login {
@@ -96,9 +97,22 @@ model Funcao {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  descricao String
+  descricao String @unique
 
   colaborador_has_funcao colaborador_has_funcao[]
+  funcao_has_permissao   Funcao_has_permissao[]
+}
+
+model Permissao {
+  uuid String @id @default(uuid())
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  descricao String @unique
+
+  colaborador_has_permissao Colaborador_has_permissao[]
+  funcao_has_permissao      Funcao_has_permissao[]
 }
 
 model colaborador_has_funcao {
@@ -111,6 +125,27 @@ model colaborador_has_funcao {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model Colaborador_has_permissao {
+  uuid String @id @default(uuid())
+
+  Colaborador     Colaborador @relation(fields: [colaboradorUuid], references: [uuid])
+  colaboradorUuid String
+  Permissao       Permissao   @relation(fields: [permissaoUuid], references: [uuid])
+  permissaoUuid   String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Funcao_has_permissao {
+  uuid String @id @default(uuid())
+
+  Funcao        Funcao?    @relation(fields: [funcaoUuid], references: [uuid])
+  funcaoUuid    String?
+  Permissao     Permissao? @relation(fields: [permissaoUuid], references: [uuid])
+  permissaoUuid String?
 }
 
 model Cliente {

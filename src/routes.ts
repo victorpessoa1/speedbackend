@@ -1,3 +1,5 @@
+import { CreatePermissaoController } from './controllers/permissao/CreatePermissaoController';
+import { CreateFuncaoController } from './controllers/funcao/CreateFuncaoController';
 import { DeleteColaboradorController } from './controllers/colaborador/DeleteColaboradorController';
 import { ReadColaboradorController } from './controllers/colaborador/ReadColaboradorController';
 import { Router } from "express";
@@ -39,5 +41,12 @@ router.get("/cliente/:uuid", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", updateClient.update)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 
+const createFuncao = new CreateFuncaoController
+
+router.post("/cadastrarfuncao", createFuncao.createFuncao)
+
+const createPermissao = new CreatePermissaoController
+
+router.post("/cadastrarpermissao", createPermissao.createpermissao)
 
 export {router}
