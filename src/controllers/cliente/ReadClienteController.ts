@@ -6,7 +6,7 @@ export class ReadClienteController {
   async clientes(req: Request, res: Response) {
 
     try {
-      const clientes = await prismaClient.cliente.findMany()
+      const clientes = await prismaClient.cliente.findMany({where:{colaborador_uuid: req.uuid}})
   
       return res.status(200).json(clientes)
 

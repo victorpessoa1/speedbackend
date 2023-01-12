@@ -36,7 +36,7 @@ model login {
   autorizado       Boolean
   email            String      @unique
   senha            String
-  acesso           Int
+  acesso           String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -150,7 +150,7 @@ model DPessoaisCliente {
   cliente_uuid String   @id
   nascimento   DateTime
   sexo         String
-  rg           String   @unique
+  rg           String
   dataEmissao  DateTime
   oExpedidor   String
   eCivel       String
