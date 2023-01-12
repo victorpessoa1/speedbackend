@@ -32,7 +32,9 @@ import process from 'process';
     
       const  {colaborador_uuid} = login
 
-    return res.json({login:{colaborador_uuid, email }, token})
+      const acesso = login.acesso
+
+    return res.json({login:{colaborador_uuid, email, acesso }, token})
      }
      catch(err){
       return res.json({"message": "erro de autenticacao"})
