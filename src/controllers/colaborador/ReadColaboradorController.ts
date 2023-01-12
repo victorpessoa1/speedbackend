@@ -21,11 +21,11 @@ export class ReadColaboradorController {
 
 
   async colaborador(req: Request, res: Response) {
-    const {cpf} = req.params
+    const {uuid} = req.params
     try {
       const colaborador = await prismaClient.colaborador.findUnique({
         where: {
-          cpf
+          uuid
         }
       })
     
