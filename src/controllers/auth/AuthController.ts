@@ -31,7 +31,7 @@ import process from 'process';
       const token = sign({uuid: login.colaborador_uuid}, process.env.SECRET ?? '', {expiresIn: "9h" })
     
       const  {colaborador_uuid} = login
-
+      
     return res.json({login:{colaborador_uuid, email }, token})
      }
      catch(err){

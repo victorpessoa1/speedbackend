@@ -48,7 +48,7 @@ export async function AuthMiddleware(req: Request, res: Response, next: NextFunc
     {
       return res.status(401).json({"error": "Colaborador invalido"})
     }
-
+    
     req.uuid = uuid
     next()
   } catch (error) {

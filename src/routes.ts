@@ -33,9 +33,9 @@ const readCliente = new ReadClienteController
 const updateClient = new UpdateClienteController
 const deleteCliente = new DeleteClienteController
 
-router.post("/cadastrarcliente/:colaborador_uuid", createCliente.handle)
+router.post("/cadastrarcliente", createCliente.handle)
 router.get("/clientes", readCliente.clientes)
-router.get("/cliente/:uuid", readCliente.cliente)
+// router.get("/clientes/:nomeCompleto", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", updateClient.update)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 

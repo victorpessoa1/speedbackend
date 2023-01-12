@@ -5,7 +5,7 @@ export class CreateClienteController {
  
   async handle(req: Request, res: Response) {
 
-    const {colaborador_uuid} = req.params
+    const colaborador_uuid = req.uuid
     try {
       const {
             nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,

@@ -36,7 +36,7 @@ model login {
   autorizado       Boolean
   email            String      @unique
   senha            String
-  acesso           Int
+  acesso           String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
