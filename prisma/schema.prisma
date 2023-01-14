@@ -154,7 +154,8 @@ model DPessoaisCliente {
   dataEmissao  DateTime
   oExpedidor   String
   eCivel       String
-  telefone     String
+  celular      String
+  whatsapp     String
   email        String
 
   created_at DateTime @default(now())

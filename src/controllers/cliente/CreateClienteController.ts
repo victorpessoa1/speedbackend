@@ -5,11 +5,11 @@ export class CreateClienteController {
  
   async handle(req: Request, res: Response) {
 
-    const {colaborador_uuid} = req.params
+    const colaborador_uuid = req.uuid
     try {
       const {
             nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
-            email, telefone, bairro, cep, cidade, endereco, estado, pais, rua
+            email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua
           } = req.body
 
       const cliente = await prismaClient.cliente.create({
@@ -27,7 +27,8 @@ export class CreateClienteController {
               oExpedidor,
               rg,
               sexo,
-              telefone,
+              celular,
+              whatsapp
     
             }
           },

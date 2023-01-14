@@ -6,7 +6,41 @@ export class ReadClienteController {
   async clientes(req: Request, res: Response) {
 
     try {
-      const clientes = await prismaClient.cliente.findMany({where:{colaborador_uuid: req.uuid}})
+      const clientes = await prismaClient.cliente.findMany({
+        where:{
+          colaborador_uuid: req.uuid,
+          
+        },
+        select:{
+          nomeCompleto: true,
+          cpf: true,
+          isAtivo: true,
+          DPessoaisCliente:{
+            select:{
+              rg: true,
+              dataEmissao: true,
+              oExpedidor: true,
+              eCivel: true,
+              sexo: true,
+              nascimento: true,
+              celular: true,
+              whatsapp: true,
+              email: true,
+            }
+          },
+          EnderecoCliente:{
+            select:{
+              cep: true,
+              pais: true,
+              estado: true,
+              cidade: true,
+              bairro: true,
+              rua: true,
+              endereco: true,
+            }
+          }
+        }
+      })
   
       return res.status(200).json(clientes)
 
