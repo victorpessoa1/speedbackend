@@ -197,11 +197,11 @@ model TipoConsorcio {
 
 model Contrato {
   nContrato        Int           @id
-  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   cliente_uuid     String
   colaborador      Colaborador   @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_id Int
   data             DateTime
   vencimento       Int
@@ -221,8 +221,8 @@ model Financeira {
   cnpj          String @unique
   razaoSocial   String @unique
   contrato      String @unique
-  Gerente       String
-  Email         String
+  gerente       String
+  email         String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -231,7 +231,7 @@ model Financeira {
 }
 
 model Boleto {
-  boletos_id Int @id @default(autoincrement())
+  boleto_id Int @id @default(autoincrement())
 
   Contrato      Contrato   @relation(fields: [nContrato], references: [nContrato], onDelete: Cascade, onUpdate: Cascade)
   nContrato     Int

@@ -1,3 +1,4 @@
+import { CreateBoletoController } from './controllers/boleto/CreateBoletoController';
 import { DeleteColaboradorController } from './controllers/colaborador/DeleteColaboradorController';
 import { ReadColaboradorController } from './controllers/colaborador/ReadColaboradorController';
 import { Router } from "express";
@@ -9,6 +10,25 @@ import { UpdateClienteController } from "./controllers/cliente/UpdateClienteCont
 import { UpdateColaboradorController } from './controllers/colaborador/UpdateColaboradorController';
 import { AuthColaboradorController } from './controllers/auth/AuthController';
 import { AuthMiddleware } from './middlewares/auth';
+import { DeleteBoletoController } from './controllers/boleto/DeleteBoletoController';
+import { ReadBoletoController } from './controllers/boleto/ReadBoletoController';
+import { UpdateBoletoController } from './controllers/boleto/UpdateBoletoController';
+import { CreateContemplacaoController } from './controllers/contemplacao/CreateContemplacaoController';
+import { DeleteContemplacaoController } from './controllers/contemplacao/DeleteContemplacaoController';
+import { ReadContemplacaoController } from './controllers/contemplacao/ReadContemplacaoController';
+import { UpdateContemplacaoController } from './controllers/contemplacao/UpdateContemplacaoController';
+import { CreateContratoController } from './controllers/contrato/CreateContratoController';
+import { DeleteContratoController } from './controllers/contrato/DeleteContratoController';
+import { ReadContratoController } from './controllers/contrato/ReadContratoController';
+import { UpdateContratoController } from './controllers/contrato/UpdateContratoController';
+import { CreateFinanceiraController } from './controllers/financeira/CreateFinanceiraController';
+import { DeleteFinanceiraController } from './controllers/financeira/DeleteFinanceiraController';
+import { ReadFinanceiraController } from './controllers/financeira/ReadFinanceiraController';
+import { UpdateFinanceiraController } from './controllers/financeira/UpdateFinanceiraController';
+import { CreateTipoConsorcioController } from './controllers/tipoConsorcio/CreateTipoConsorcioController';
+import { DeleteTipoConsorcioController } from './controllers/tipoConsorcio/DeleteTipoConsorcioController';
+import { ReadTipoConsorcioController } from './controllers/tipoConsorcio/ReadTipoConsorcioController';
+import { UpdateTipoConsorcioController } from './controllers/tipoConsorcio/UpdateTipoConsorcioController';
 
 const router = Router()
 const createColaborador = new CreateColaboradorController
@@ -38,6 +58,58 @@ router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", updateClient.update)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
+
+const createBoleto = new CreateBoletoController
+const readBoleto = new ReadBoletoController
+const updateBoleto = new UpdateBoletoController
+const deleteBoleto = new DeleteBoletoController
+
+router.post("/cadastrarboleto", createBoleto.handle)
+router.get("/boletos", readBoleto.exibirBoleto)
+router.put("/atualizarboleto/:boleto_id", updateBoleto.update)
+router.delete("/deletarboleto/:boleto_id", deleteBoleto.delete)
+
+const createContemplacao = new CreateContemplacaoController
+const readContemplacao = new ReadContemplacaoController
+const updateContemplacao = new UpdateContemplacaoController
+const deleteContemplacao = new DeleteContemplacaoController
+
+router.post("/cadastrarcontemplacao", createContemplacao.handle)
+router.get("/contemplacoes", readContemplacao.exibirContemplacao)
+router.put("/atualizarcontemplacao/:contemplacao_id", updateContemplacao.update)
+router.delete("/deletarcontemplacao/:contemplacao_id", deleteContemplacao.delete)
+
+const createContrato = new CreateContratoController
+const readContrato = new ReadContratoController
+const updateContrato = new UpdateContratoController
+const deleteContrato = new DeleteContratoController
+
+router.post("/cadastrarcontrato", createContrato.handle)
+router.get("/contratos", readContrato.exibirContrato)
+router.put("/atualizarcontrato/:nContrato", updateContrato.update)
+router.delete("/deletarcontrato/:nContrato", deleteContrato.delete)
+
+const createFinanceira = new CreateFinanceiraController
+const readFinanceira = new ReadFinanceiraController
+const updateFinanceira = new UpdateFinanceiraController
+const deleteFinanceira = new DeleteFinanceiraController
+
+router.post("/cadastrarfinanceira", createFinanceira.handle)
+router.get("/financeiras", readFinanceira.exibirFinanceira)
+router.put("/atualizarfinanceira/:financeira_id", updateFinanceira.update)
+router.delete("/deletarfinanceira/:financeira_id", deleteFinanceira.delete)
+
+
+const createTipoConsorcio = new CreateTipoConsorcioController
+const readTipoConsorcio = new ReadTipoConsorcioController
+const updateTipoConsorcio = new UpdateTipoConsorcioController
+const deleteTipoConsorcio = new DeleteTipoConsorcioController
+
+router.post("/cadastrartipoconsorcio", createTipoConsorcio.handle)
+router.get("/tipoconsorcios", readTipoConsorcio.exibirTipoConsorcio)
+router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
+router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
+
 
 
 export {router}
