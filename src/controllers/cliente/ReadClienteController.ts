@@ -12,6 +12,7 @@ export class ReadClienteController {
           
         },
         select:{
+          uuid: true,
           nomeCompleto: true,
           cpf: true,
           isAtivo: true,
