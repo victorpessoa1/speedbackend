@@ -205,7 +205,7 @@ model Contrato {
   tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_id Int
   // assinatura String
-  data             DateTime
+  dataCriado       DateTime      @default(now())
   vencimento       Int
   valorBem         Float
   planoNovo        Boolean
