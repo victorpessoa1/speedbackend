@@ -187,7 +187,7 @@ model DadosBancariosCliente {
 
 model TipoConsorcio {
   id        Int    @id @default(autoincrement())
-  descricao String
+  descricao String @unique
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -196,19 +196,19 @@ model TipoConsorcio {
 }
 
 model Contrato {
-  id               Int           @id @default(autoincrement())
-  cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
-  cliente_uuid     String
-  colaborador      Colaborador   @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
-  colaborador_uuid String
-  tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  tipoConsorcio_id Int
+  id                      Int           @id @default(autoincrement())
+  cliente                 Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  cliente_uuid            String
+  colaborador             Colaborador   @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  colaborador_uuid        String
+  tipoConsorcio           TipoConsorcio @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
+  tipoConsorcio_descricao String
   // assinatura String
-  dataCriado       DateTime      @default(now())
-  vencimento       Int
-  valorBem         Float
-  planoNovo        Boolean
-  isAtivo          Boolean
+  dataCriado              DateTime      @default(now())
+  vencimento              String
+  valorBem                Float
+  planoNovo               Boolean
+  isAtivo                 Boolean
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
