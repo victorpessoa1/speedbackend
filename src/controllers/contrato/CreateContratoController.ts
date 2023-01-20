@@ -6,14 +6,14 @@ export class CreateContratoController {
   async handle(req: Request, res: Response) {
 
     try {
-      const {nContrato, data, isAtivo, modelo, valorBem, vencimento, cliente_uuid, colaborador_uuid, tipoConsorcio_id} = req.body
+      const {nContrato, data, isAtivo, planoNovo, valorBem, vencimento, cliente_uuid, colaborador_uuid, tipoConsorcio_id} = req.body
 
       const contrato = await prismaClient.contrato.create({
         data: {
             nContrato,
             data,
             isAtivo,
-            modelo,
+            planoNovo,
             valorBem,
             vencimento,
             cliente_uuid,

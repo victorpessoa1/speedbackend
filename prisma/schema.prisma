@@ -2,9 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+// }
 
 datasource db {
   provider = "postgresql"
@@ -196,6 +196,7 @@ model TipoConsorcio {
 }
 
 model Contrato {
+  // contrato_id      String        @default(uuid())
   nContrato        Int           @id
   cliente          Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   cliente_uuid     String
@@ -203,10 +204,11 @@ model Contrato {
   colaborador_uuid String
   tipoConsorcio    TipoConsorcio @relation(fields: [tipoConsorcio_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_id Int
+  // assinatura String
   data             DateTime
   vencimento       Int
   valorBem         Float
-  modelo           String
+  planoNovo        Boolean
   isAtivo          Boolean
 
   created_at DateTime @default(now())
