@@ -4,7 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateContratoController {
 
   async update(req: Request, res: Response) {
-    const {nContrato, data, isAtivo, modelo, valorBem, vencimento, cliente_uuid, colaborador_uuid, tipoConsorcio_id} = req.body
+    const {nContrato, data, isAtivo, planoNovo, valorBem, vencimento, cliente_uuid, colaborador_uuid, tipoConsorcio_id} = req.body
     
 
     try {
@@ -14,7 +14,7 @@ export class UpdateContratoController {
               data: { 
                 data,
                 isAtivo,
-                modelo,
+                planoNovo,
                 valorBem,
                 vencimento,
                 cliente_uuid,
