@@ -5,9 +5,9 @@ export class DeleteContratoController {
 
   async delete(req: Request, res: Response) {
     
-    const {nContrato} = req.body
-    if (!nContrato) {
-      return res.status(400).json({ message: "nContrato invalido"})
+    const {id} = req.body
+    if (!id) {
+      return res.status(400).json({ message: "id invalido"})
     }
     
     try {
@@ -15,7 +15,7 @@ export class DeleteContratoController {
       await prismaClient.contrato.delete(
       {
         where: {
-          nContrato
+          id
         }
       }
       )

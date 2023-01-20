@@ -4,7 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateContemplacaoController {
 
   async update(req: Request, res: Response) {
-    const {tipoContemplacao, data, lance, nContrato} = req.body
+    const {tipoContemplacao, data, lance, id} = req.body
     const {contemplacao_id} = req.params
 
     try {
@@ -13,9 +13,9 @@ export class UpdateContemplacaoController {
               where: { contemplacao_id : Number(contemplacao_id) },
               data: { 
                 tipoContemplacao,
-            data,
-            lance,
-            nContrato
+                data,
+                lance,
+                id
               }
             }
           )

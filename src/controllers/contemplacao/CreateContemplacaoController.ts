@@ -6,14 +6,14 @@ export class CreateContemplacaoController {
   async handle(req: Request, res: Response) {
 
     try {
-      const {tipoContemplacao, data, lance, nContrato} = req.body
+      const {tipoContemplacao, data, lance, id} = req.body
 
       const contemplacao = await prismaClient.contemplacao.create({
         data: {
             tipoContemplacao,
             data,
             lance,
-            nContrato
+            id
         }
       })
       
