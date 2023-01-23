@@ -9,7 +9,6 @@ export class ReadClienteController {
       const clientes = await prismaClient.cliente.findMany({
         where:{
           colaborador_uuid: req.uuid,
-          
         },
         select:{
           uuid: true,

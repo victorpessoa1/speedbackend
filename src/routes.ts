@@ -106,7 +106,7 @@ const updateTipoConsorcio = new UpdateTipoConsorcioController
 const deleteTipoConsorcio = new DeleteTipoConsorcioController
 
 router.post("/cadastrartipoconsorcio", createTipoConsorcio.handle)
-router.get("/tipoconsorcios", readTipoConsorcio.exibirTipoConsorcio)
+router.get("/tiposconsorcio", readTipoConsorcio.exibirTipoConsorcio)
 router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
 router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
 
