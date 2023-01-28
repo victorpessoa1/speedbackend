@@ -8,7 +8,7 @@ export class CreateClienteController {
     const colaborador_uuid = req.uuid
     try {
       const {
-            nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
+            nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, fotoDocumento, sexo,
             email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua
           } = req.body
 
@@ -26,6 +26,7 @@ export class CreateClienteController {
               nascimento,
               oExpedidor,
               rg,
+              fotoDocumento,
               sexo,
               celular,
               whatsapp

@@ -146,17 +146,18 @@ model EnderecoCliente {
 }
 
 model DPessoaisCliente {
-  cliente      Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  cliente_uuid String   @id
-  nascimento   DateTime
-  sexo         String
-  rg           String
-  dataEmissao  DateTime
-  oExpedidor   String
-  eCivel       String
-  celular      String
-  whatsapp     String
-  email        String
+  cliente       Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  cliente_uuid  String   @id
+  nascimento    DateTime
+  sexo          String
+  rg            String
+  dataEmissao   DateTime
+  oExpedidor    String
+  fotoDocumento String
+  eCivel        String
+  celular       String
+  whatsapp      String
+  email         String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -165,8 +166,10 @@ model DPessoaisCliente {
 model agendaCliente {
   uuid             String      @id @default(uuid())
   cliente          String
-  numero           String      @unique
-  interesse        String
+  telefone         String      @unique
+  whatsapp         String
+  dataParaLigar    String
+  horaParaLigar    String
   colaborador_uuid String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
 

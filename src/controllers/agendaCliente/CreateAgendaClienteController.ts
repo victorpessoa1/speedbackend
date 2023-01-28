@@ -7,21 +7,21 @@ export class CreateAgendaClienteController {
 
     const {colaborador_uuid} = req.params
     try {
-      const {
-            cliente, numero, interesse
-          } = req.body
+      const {  cliente, telefone, whatsapp, dataParaLigar, horaParaLigar } = req.body
 
       const agendaCliente = await prismaClient.agendaCliente.create({
         data: {
           cliente,
-          interesse,
-          numero,
-          colaborador_uuid
+          telefone,
+          whatsapp,
+          dataParaLigar,
+          horaParaLigar,
+          colaborador_uuid,
         },
       })
       
     
-      return res.status(201).json({agendaCliente, message: "Cliente criado com sucesso"})
+      return res.status(201).json({agendaCliente, message: "Cliente adicionado à agenda com sucesso"})
       
     } catch (error) {
      return res.status(500).json(

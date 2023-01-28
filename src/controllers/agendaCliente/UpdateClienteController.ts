@@ -4,7 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateAgendaClienteController {
 
   async update(req: Request, res: Response) {
-    const {cliente, numero, interesse} = req.body
+    const {  cliente, telefone, whatsapp, dataParaLigar, horaParaLigar } = req.body
     const {uuid} = req.params
 
     try {
@@ -13,8 +13,10 @@ export class UpdateAgendaClienteController {
               where: { uuid },
               data: { 
                 cliente,
-                numero,
-                interesse
+                telefone,
+                whatsapp,
+                dataParaLigar,
+                horaParaLigar,
               }
             }
           )
