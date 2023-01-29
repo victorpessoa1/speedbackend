@@ -154,6 +154,8 @@ model DPessoaisCliente {
   dataEmissao   DateTime
   oExpedidor    String
   fotoDocumento String
+  profissao     String
+  rendimento    Float
   eCivel        String
   celular       String
   whatsapp      String

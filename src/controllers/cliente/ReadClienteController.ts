@@ -18,6 +18,9 @@ export class ReadClienteController {
           DPessoaisCliente:{
             select:{
               rg: true,
+              fotoDocumento: true,
+              profissao: true,
+              rendimento: true,
               dataEmissao: true,
               oExpedidor: true,
               eCivel: true,

@@ -56,7 +56,9 @@ const deleteCliente = new DeleteClienteController
 router.post("/cadastrarcliente/:colaborador_uuid", createCliente.handle)
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
-router.put("/atualizarcliente/:uuid", updateClient.update)
+router.put("/atualizarcliente/:uuid", updateClient.updateCliente)
+router.put("/atualizardpessoaiscliente/:cliente_uuid", updateClient.updateDPessoaisCliente)
+router.put("/atualizarenderecocliente/:cliente_uuid", updateClient.updateEnderecoCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 
 const createBoleto = new CreateBoletoController
