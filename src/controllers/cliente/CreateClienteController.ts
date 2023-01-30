@@ -4,11 +4,13 @@ import { prismaClient } from '../../database/prismaClient';
 export class CreateClienteController {
  
   async handle(req: Request, res: Response) {
+    console.log(req.file)
 
     const colaborador_uuid = req.uuid
+    const fotoDocumento = req.file?.path
     try {
       const {
-            nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, fotoDocumento, sexo,
+            nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
             profissao, rendimento, email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua
           } = req.body
 
@@ -16,7 +18,7 @@ export class CreateClienteController {
         data: {
           nomeCompleto,
           cpf,
-          isAtivo,
+          isAtivo: Boolean(isAtivo),
           colaborador_uuid,
           DPessoaisCliente: {
             create: {
@@ -26,10 +28,10 @@ export class CreateClienteController {
               nascimento,
               oExpedidor,
               rg,
-              fotoDocumento,
+              fotoDocumento: String(fotoDocumento),
               sexo,
               profissao,
-              rendimento,
+              rendimento: parseFloat(rendimento),
               celular,
               whatsapp
     
@@ -52,7 +54,8 @@ export class CreateClienteController {
     
       return res.status(201).json({cliente, message: "Cliente criado com sucesso"})
       
-    } catch (error) {
+    } 
+    catch (error) {
      return res.status(500).json(
       { 
       error: error,

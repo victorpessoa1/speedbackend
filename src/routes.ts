@@ -31,6 +31,27 @@ import { ReadTipoConsorcioController } from './controllers/tipoConsorcio/ReadTip
 import { UpdateTipoConsorcioController } from './controllers/tipoConsorcio/UpdateTipoConsorcioController';
 
 const router = Router()
+const multer = require("multer")
+
+const storage = multer.diskStorage({
+    destination: function (req: any, file: any, cb: any) {
+        cb(null, './uploads/')
+    },
+    filename: function (req: any, file: any, cb: any) {
+        cb(null, req.body.nomeCompleto + ".jpg")
+    }
+})
+
+const upload = multer ({ 
+    storage: storage,
+    limits: {
+        fileSize: 1024 * 1024 * 5
+    },
+
+ })
+
+
+
 const createColaborador = new CreateColaboradorController
 
 const autenticacaoColaborador = new AuthColaboradorController
@@ -53,7 +74,7 @@ const readCliente = new ReadClienteController
 const updateClient = new UpdateClienteController
 const deleteCliente = new DeleteClienteController
 
-router.post("/cadastrarcliente/:colaborador_uuid", createCliente.handle)
+router.post("/cadastrarcliente/:colaborador_uuid", upload.single('fotoDocumento') , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", updateClient.updateCliente)

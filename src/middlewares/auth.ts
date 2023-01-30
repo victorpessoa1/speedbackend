@@ -51,6 +51,7 @@ export async function AuthMiddleware(req: Request, res: Response, next: NextFunc
 
     req.uuid = uuid
     next()
+    
   } catch (error) {
     return res.status(401).json({"error": "Token invalido"})
   }
