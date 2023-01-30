@@ -29,6 +29,10 @@ import { CreateTipoConsorcioController } from './controllers/tipoConsorcio/Creat
 import { DeleteTipoConsorcioController } from './controllers/tipoConsorcio/DeleteTipoConsorcioController';
 import { ReadTipoConsorcioController } from './controllers/tipoConsorcio/ReadTipoConsorcioController';
 import { UpdateTipoConsorcioController } from './controllers/tipoConsorcio/UpdateTipoConsorcioController';
+import { CreateAgendaClienteController } from './controllers/agendaCliente/CreateAgendaClienteController';
+import { DeleteAgendaClienteController } from './controllers/agendaCliente/DeleteAgendaClienteController';
+import { ReadAgendaClienteController } from './controllers/agendaCliente/ReadAgendaClienteController';
+import { UpdateAgendaClienteController } from './controllers/agendaCliente/UpdateClienteController';
 
 const router = Router()
 const multer = require("multer")
@@ -71,16 +75,27 @@ router.post("/logout", autenticacaoColaborador.logout)
 
 const createCliente = new CreateClienteController   
 const readCliente = new ReadClienteController
-const updateClient = new UpdateClienteController
+const updateCliente = new UpdateClienteController
 const deleteCliente = new DeleteClienteController
 
 router.post("/cadastrarcliente/:colaborador_uuid", upload.single('fotoDocumento') , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
-router.put("/atualizarcliente/:uuid", updateClient.updateCliente)
-router.put("/atualizardpessoaiscliente/:cliente_uuid", updateClient.updateDPessoaisCliente)
-router.put("/atualizarenderecocliente/:cliente_uuid", updateClient.updateEnderecoCliente)
+router.put("/atualizarcliente/:uuid", updateCliente.updateCliente)
+router.put("/atualizardpessoaiscliente/:cliente_uuid", updateCliente.updateDPessoaisCliente)
+router.put("/atualizarenderecocliente/:cliente_uuid", updateCliente.updateEnderecoCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
+
+const createAgendaCliente = new CreateAgendaClienteController   
+const readAgendaCliente = new ReadAgendaClienteController
+const updateAgendaCliente = new UpdateAgendaClienteController
+const deleteAgendaCliente = new DeleteAgendaClienteController
+
+router.post("/cadastraragendacliente/:colaborador_uuid", createAgendaCliente.handle)
+router.get("/agendaclientes", readAgendaCliente.exibirClientes)
+router.get("/agendacliente/:uuid", readAgendaCliente.exibirCliente)
+router.put("/atualizaragendacliente/:uuid", updateAgendaCliente.update)
+router.delete("/deletaragendacliente/:uuid", deleteAgendaCliente.delete)
 
 const createBoleto = new CreateBoletoController
 const readBoleto = new ReadBoletoController
