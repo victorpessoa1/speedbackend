@@ -42,7 +42,7 @@ const storage = multer.diskStorage({
         cb(null, './uploads/')
     },
     filename: function (req: any, file: any, cb: any) {
-        cb(null, file.originalname)
+        cb(null, new Date().toISOString() + req.body.nomeCompleto + '.jpeg')
     }
 })
 
