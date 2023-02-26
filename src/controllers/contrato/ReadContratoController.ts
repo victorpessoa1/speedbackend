@@ -18,4 +18,89 @@ export class ReadContratoController {
     }
   
   }
+
+  async exibirContratos(req: Request, res: Response) {
+        
+    const contratos = await prismaClient.contrato.findMany({
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosporcolaborador(req: Request, res: Response) {
+    const {uuid} = req.params
+        
+    const contratos = await prismaClient.contrato.findMany({
+        where: {colaborador_uuid : uuid},
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosporcliente(req: Request, res: Response) {
+        const {cliente_uuid} = req.params
+    const contratos = await prismaClient.contrato.findMany({
+      where: {cliente_uuid},
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  
 }

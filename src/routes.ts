@@ -1,3 +1,7 @@
+import { DeleteEquipeController } from './controllers/equipe/DeleteEquipeController';
+import { CreateEquipeController } from './controllers/equipe/CreateEquipeController';
+import { UpdateEquipeController } from './controllers/equipe/UpdateEquipeController';
+import { ReadEquipeController } from './controllers/equipe/ReadEquipeController';
 import { CreateBoletoController } from './controllers/boleto/CreateBoletoController';
 import { DeleteColaboradorController } from './controllers/colaborador/DeleteColaboradorController';
 import { ReadColaboradorController } from './controllers/colaborador/ReadColaboradorController';
@@ -42,7 +46,7 @@ const storage = multer.diskStorage({
         cb(null, './uploads/')
     },
     filename: function (req: any, file: any, cb: any) {
-        cb(null, new Date().toISOString() + req.body.nomeCompleto + '.jpeg')
+        cb(null, req.body.nomeCompleto)
     }
 })
 
@@ -72,6 +76,16 @@ router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
 router.post("/logout", autenticacaoColaborador.logout)
+
+const createEquipe = new CreateEquipeController
+const readEquipe = new ReadEquipeController
+const UpdateEquipe = new UpdateEquipeController
+const deleteEquipe = new DeleteEquipeController
+
+router.post('/cadastrarequipe', createEquipe.handle)
+router.get('/equipes', readEquipe.equipes)
+router.put('/atualizarequipe/:uuid', UpdateEquipe.update)
+router.delete('/deletarcolaborador/:uuid', deleteEquipe.delete)
 
 const createCliente = new CreateClienteController   
 const readCliente = new ReadClienteController
@@ -124,6 +138,10 @@ const deleteContrato = new DeleteContratoController
 
 router.post("/cadastrarcontrato", createContrato.handle)
 router.get("/contratos", readContrato.exibirContrato)
+router.get("/contratostotal", readContrato.exibirContratos)
+router.get("/contratos/:uuid", readContrato.exibirContratosporcolaborador)
+router.get("/contratos/:cliente_uuid", readContrato.exibirContratosporcliente)
+router.get("/contratos/uuid", readContrato.exibirContratos)
 router.put("/atualizarcontrato/:nContrato", updateContrato.update)
 router.delete("/deletarcontrato/:nContrato", deleteContrato.delete)
 
@@ -147,7 +165,5 @@ router.post("/cadastrartipoconsorcio", createTipoConsorcio.handle)
 router.get("/tiposconsorcio", readTipoConsorcio.exibirTipoConsorcio)
 router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
 router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
-
-
 
 export {router}

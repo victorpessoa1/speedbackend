@@ -2,9 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator erd {
-  provider = "prisma-erd-generator"
-}
+// generator erd {
+//   provider = "prisma-erd-generator"
+// }
 
 datasource db {
   provider = "postgresql"
@@ -76,15 +76,13 @@ model DPessoaisColaborador {
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
-  Equipe     Equipe[]
 }
 
 model Equipe {
-  colaborador          Colaborador          @relation(fields: [lider], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  dPessoaisColaborador DPessoaisColaborador @relation(fields: [vendedor], references: [colaborador_uuid], onDelete: Cascade, onUpdate: Cascade)
-  lider                String
-  vendedor             String
-  idEquipe             String               @id @default(uuid())
+  colaborador Colaborador @relation(fields: [vendedor], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  lider       String
+  vendedor    String
+  idEquipe    String      @id @default(uuid())
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

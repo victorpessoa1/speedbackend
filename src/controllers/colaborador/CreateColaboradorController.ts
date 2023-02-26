@@ -28,8 +28,6 @@ export class CreateColaboradorController {
         },
       }
     })
-    
-
     return res.status(201).json(colaborador)
     } catch (error) {
       return res.status(400).json({
