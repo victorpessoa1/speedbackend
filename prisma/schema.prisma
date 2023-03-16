@@ -28,6 +28,7 @@ model Colaborador {
   Contrato               Contrato[]
   login                  login[]
   agendaCliente          agendaCliente[]
+  tarefas                tarefas[]
 }
 
 model login {
@@ -163,6 +164,17 @@ model DPessoaisCliente {
   updated_at DateTime @updatedAt
 }
 
+model DadosBancariosCliente {
+  cc           String
+  cp           String
+  agencia      String
+  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  cliente_uuid String  @id
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
 model agendaCliente {
   uuid             String      @id @default(uuid())
   cliente          String
@@ -177,12 +189,16 @@ model agendaCliente {
   updated_at DateTime @updatedAt
 }
 
-model DadosBancariosCliente {
-  cc           String
-  cp           String
-  agencia      String
-  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  cliente_uuid String  @id
+model tarefas {
+  uuid             String      @id @default(uuid())
+  nometarefa       String
+  nomecliente      String
+  nomecolaborador  String
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  colaborador_uuid String
+  dataentrega      String
+  telefonecliente  String
+  statustarefa     String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

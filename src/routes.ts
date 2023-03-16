@@ -36,7 +36,11 @@ import { UpdateTipoConsorcioController } from './controllers/tipoConsorcio/Updat
 import { CreateAgendaClienteController } from './controllers/agendaCliente/CreateAgendaClienteController';
 import { DeleteAgendaClienteController } from './controllers/agendaCliente/DeleteAgendaClienteController';
 import { ReadAgendaClienteController } from './controllers/agendaCliente/ReadAgendaClienteController';
-import { UpdateAgendaClienteController } from './controllers/agendaCliente/UpdateClienteController';
+import { UpdateAgendaClienteController } from './controllers/agendaCliente/UpdateAgendaClienteController';
+import { UpdateTarefaController } from './controllers/tarefas/UpdateTarefaController';
+import { CreateTarefaController } from './controllers/tarefas/CreateTarefaController';
+import { DeleteTarefaController } from './controllers/tarefas/DeleteTarefaController';
+import { ReadTarefaController } from './controllers/tarefas/ReadTarefaController';
 
 const router = Router()
 const multer = require("multer")
@@ -111,6 +115,17 @@ router.get("/agendacliente/:uuid", readAgendaCliente.exibirCliente)
 router.put("/atualizaragendacliente/:uuid", updateAgendaCliente.update)
 router.delete("/deletaragendacliente/:uuid", deleteAgendaCliente.delete)
 
+const createTarefa = new CreateTarefaController   
+const readTarefa = new ReadTarefaController
+const updateTarefa = new UpdateTarefaController
+const deleteTarefa = new DeleteTarefaController
+
+router.post("/cadastrartarefa/:colaborador_uuid", createTarefa.handle)
+router.get("/tarefas", readTarefa.exibirTarefas)
+router.get("/tarefa/:uuid", readTarefa.exibirTarefa)
+router.put("/atualizartarefa/:uuid", updateTarefa.update)
+router.delete("/deletartarefa/:uuid", deleteTarefa.delete)
+
 const createBoleto = new CreateBoletoController
 const readBoleto = new ReadBoletoController
 const updateBoleto = new UpdateBoletoController
@@ -139,8 +154,9 @@ const deleteContrato = new DeleteContratoController
 router.post("/cadastrarcontrato", createContrato.handle)
 router.get("/contratos", readContrato.exibirContrato)
 router.get("/contratostotal", readContrato.exibirContratos)
-router.get("/contratos/:uuid", readContrato.exibirContratosporcolaborador)
-router.get("/contratos/:cliente_uuid", readContrato.exibirContratosporcliente)
+router.get("/contratos/:uuid", readContrato.exibirContratosPorColaborador)
+router.get("/contratos/:cliente_uuid", readContrato.exibirContratosPorCliente)
+router.get("/contratos/tempo", readContrato.exibirContratosPorTempo)
 router.get("/contratos/uuid", readContrato.exibirContratos)
 router.put("/atualizarcontrato/:nContrato", updateContrato.update)
 router.delete("/deletarcontrato/:nContrato", deleteContrato.delete)

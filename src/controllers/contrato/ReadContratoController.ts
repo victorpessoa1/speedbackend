@@ -46,7 +46,7 @@ export class ReadContratoController {
     return res.status(200).json(contratos)
   }
 
-  async exibirContratosporcolaborador(req: Request, res: Response) {
+  async exibirContratosPorColaborador(req: Request, res: Response) {
     const {uuid} = req.params
         
     const contratos = await prismaClient.contrato.findMany({
@@ -74,8 +74,10 @@ export class ReadContratoController {
     return res.status(200).json(contratos)
   }
 
-  async exibirContratosporcliente(req: Request, res: Response) {
-        const {cliente_uuid} = req.params
+  async exibirContratosPorCliente(req: Request, res: Response) {
+    
+    const {cliente_uuid} = req.params
+    
     const contratos = await prismaClient.contrato.findMany({
       where: {cliente_uuid},
         
@@ -96,6 +98,35 @@ export class ReadContratoController {
             Contemplacao: true,
 
             
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosPorTempo(req: Request, res: Response) {
+    
+    const {tempo} = req.body
+
+    const contratos = await prismaClient.contrato.findMany({
+        where: {
+            created_at: {
+                gt: tempo
+            }
+        },
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+                }
+            },
+            Contemplacao: true,            
         }
     })
 
