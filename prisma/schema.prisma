@@ -74,6 +74,7 @@ model DPessoaisColaborador {
   dataEmissao      DateTime
   oExpedidor       String
   eCivel           String
+  id_botconversa   String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -145,20 +146,21 @@ model EnderecoCliente {
 }
 
 model DPessoaisCliente {
-  cliente       Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  cliente_uuid  String   @id
-  nascimento    DateTime
-  sexo          String
-  rg            String
-  dataEmissao   DateTime
-  oExpedidor    String
-  fotoDocumento String
-  profissao     String
-  rendimento    Float
-  eCivel        String
-  celular       String
-  whatsapp      String
-  email         String
+  cliente        Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  cliente_uuid   String   @id
+  nascimento     DateTime
+  sexo           String
+  rg             String
+  dataEmissao    DateTime
+  oExpedidor     String
+  fotoDocumento  String
+  profissao      String
+  rendimento     String
+  eCivel         String
+  celular        String
+  whatsapp       String
+  email          String
+  id_botconversa String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

@@ -31,7 +31,7 @@ export class CreateClienteController {
               fotoDocumento: String(fotoDocumento),
               sexo,
               profissao,
-              rendimento: parseFloat(rendimento),
+              rendimento,
               celular,
               whatsapp
     
