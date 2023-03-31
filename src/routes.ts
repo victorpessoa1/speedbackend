@@ -100,8 +100,6 @@ router.post("/cadastrarcliente/:colaborador_uuid", upload.single('fotoDocumento'
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", upload.single('fotoDocumento') , updateCliente.updateCliente)
-router.put("/atualizardpessoaiscliente/:cliente_uuid", updateCliente.updateDPessoaisCliente)
-router.put("/atualizarenderecocliente/:cliente_uuid", updateCliente.updateEnderecoCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 
 const createAgendaCliente = new CreateAgendaClienteController   
