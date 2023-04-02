@@ -41,28 +41,41 @@ import { UpdateTarefaController } from './controllers/tarefas/UpdateTarefaContro
 import { CreateTarefaController } from './controllers/tarefas/CreateTarefaController';
 import { DeleteTarefaController } from './controllers/tarefas/DeleteTarefaController';
 import { ReadTarefaController } from './controllers/tarefas/ReadTarefaController';
+import path from 'path'
+import fs from 'fs-extra';
 
 const router = Router()
+
+////////////////////////////////////////////
 const multer = require("multer")
+const maxArquivos = 5;
 
 const storage = multer.diskStorage({
-    destination: function (req: any, file: any, cb: any) {
-        cb(null, './uploads/')
+    destination: async (req: any, file: any, cb: any) => {
+        console.log(req.body)
+        console.log("//////////////////////////");
+        
+        const nomeCompleto = req.body.nomeCompleto.replaceAll(' ', '');
+        const pasta = path.join(__dirname, '..', 'uploads', nomeCompleto);
+        
+        try {
+            await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
+            cb(null, pasta);
+          } catch (err) {
+            cb(err, null);
+          }        
+        
     },
-    filename: function (req: any, file: any, cb: any) {
-        cb(null, req.body.nomeCompleto)
+    filename: (req: any, file: any, cb: any) => {
+        cb(null, file.originalname);
     }
 })
 
 const upload = multer ({ 
     storage: storage,
-    limits: {
-        fileSize: 1024 * 1024 * 5
-    },
-
  })
 
-
+///////////////////////////////////////////////
 
 const createColaborador = new CreateColaboradorController
 
@@ -96,10 +109,10 @@ const readCliente = new ReadClienteController
 const updateCliente = new UpdateClienteController
 const deleteCliente = new DeleteClienteController
 
-router.post("/cadastrarcliente/:colaborador_uuid", upload.single('fotoDocumento') , createCliente.handle)
+router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
-router.put("/atualizarcliente/:uuid", upload.single('fotoDocumento') , updateCliente.updateCliente)
+router.put("/atualizarcliente/:uuid", upload.array('fotoDocumento', maxArquivos) , updateCliente.updateCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 
 const createAgendaCliente = new CreateAgendaClienteController   

@@ -1,13 +1,16 @@
 import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
+import path from 'path'
+const fs = require('fs-extra')
 
 export class CreateClienteController {
  
   async handle(req: Request, res: Response) {
-    console.log(req.file)
-
+    
     const colaborador_uuid = req.uuid
-    const fotoDocumento = req.file?.path
+    const fotoDocumento = path.join(__dirname, '..', 'uploads', req.body.nomeCompleto.replaceAll(' ', ''))
+    console.log(fotoDocumento);
+    
     try {
       const {
             nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
@@ -56,6 +59,10 @@ export class CreateClienteController {
       
     } 
     catch (error) {
+      fs.remove(fotoDocumento, (err: any) => {
+        if (err) return console.error(err, "erro ao deletar documento")
+        console.log('documento deletado com sucesso')
+      })
      return res.status(500).json(
       { 
       error: error,
