@@ -122,6 +122,7 @@ const deleteCliente = new DeleteClienteController
 
 router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
+router.get("/clientestotal", readCliente.clientestotal)
 router.get("/cliente/:uuid", readCliente.cliente)
 router.put("/atualizarcliente/:uuid", upload.array('fotoDocumento', 7) , updateCliente.updateCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
