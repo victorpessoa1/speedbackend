@@ -180,7 +180,6 @@ router.get("/contratostotal", readContrato.exibirContratos)
 router.get("/contratos/:uuid", readContrato.exibirContratosPorColaborador)
 router.get("/contratos/:cliente_uuid", readContrato.exibirContratosPorCliente)
 router.get("/contratos/tempo", readContrato.exibirContratosPorTempo)
-router.get("/contratos/uuid", readContrato.exibirContratos)
 router.put("/atualizarcontrato/:nContrato", updateContrato.update)
 router.delete("/deletarcontrato/:nContrato", deleteContrato.delete)
 

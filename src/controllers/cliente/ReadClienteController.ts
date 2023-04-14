@@ -56,7 +56,7 @@ export class ReadClienteController {
   
   }
 
-  async clientestotal(req: Request, res: Response) {
+  async clientestotal(req: Request, res: Response) {// rota do administrativo
 
     try {
       const clientes = await prismaClient.cliente.findMany({
@@ -66,6 +66,7 @@ export class ReadClienteController {
           cpf: true,
           isAtivo: true,
           colaborador: true,
+          Contrato: true,
           DPessoaisCliente:{
             select:{
               rg: true,
