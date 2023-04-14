@@ -50,6 +50,18 @@ export class ReadColaboradorController {
               autorizado: true,
               email: true,
             }
+          },
+          EnderecoColaborador: {
+            select: {
+              bairro: true,
+              cep: true,
+              cidade: true,
+              endereco: true,
+              estado: true,
+              pais: true,
+              rua: true
+
+            }
           }
         }
       })
