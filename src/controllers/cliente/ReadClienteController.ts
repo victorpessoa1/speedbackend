@@ -65,6 +65,7 @@ export class ReadClienteController {
           nomeCompleto: true,
           cpf: true,
           isAtivo: true,
+          colaborador: true,
           DPessoaisCliente:{
             select:{
               rg: true,
