@@ -7,7 +7,20 @@ export class ReadColaboradorController {
   
     try {
 
-      const colaboradores = await prismaClient.colaborador.findMany()
+      const colaboradores = await prismaClient.colaborador.findMany({
+        select:{
+          nomeCompleto: true,
+          cpf: true,
+          isAtivo: true,
+          login: {
+            select: {
+              acesso: true,
+              autorizado: true,
+              email: true,
+            }
+          }
+        }
+      })
   
       return res.status(200).json(colaboradores)
 
@@ -26,6 +39,18 @@ export class ReadColaboradorController {
       const colaborador = await prismaClient.colaborador.findUnique({
         where: {
           uuid
+        },
+        select:{
+          nomeCompleto: true,
+          cpf: true,
+          isAtivo: true,
+          login: {
+            select: {
+              acesso: true,
+              autorizado: true,
+              email: true,
+            }
+          }
         }
       })
     

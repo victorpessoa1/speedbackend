@@ -43,37 +43,46 @@ import { DeleteTarefaController } from './controllers/tarefas/DeleteTarefaContro
 import { ReadTarefaController } from './controllers/tarefas/ReadTarefaController';
 import path from 'path'
 import fs from 'fs-extra';
+import { UpdateLoginController } from './controllers/auth/UpdateLoginController';
 
 const router = Router()
 
 ////////////////////////////////////////////
-const multer = require("multer")
-const maxArquivos = 5;
-
-const storage = multer.diskStorage({
-    destination: async (req: any, file: any, cb: any) => {
-        console.log(req.body)
-        console.log("//////////////////////////");
-        
-        const nomeCompleto = req.body.nomeCompleto.replaceAll(' ', '');
-        const pasta = path.join(__dirname, '..', 'uploads', nomeCompleto);
-        
-        try {
-            await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
-            cb(null, pasta);
-          } catch (err) {
-            cb(err, null);
-          }        
-        
-    },
-    filename: (req: any, file: any, cb: any) => {
-        cb(null, file.originalname);
-    }
-})
-
-const upload = multer ({ 
-    storage: storage,
- })
+try{
+    const multer = require("multer")
+    
+    const storage = multer.diskStorage({
+        destination: async (req: any, file: any, cb: any) => {
+            console.log(req.body)
+            console.log("//////////////////////////");
+            
+            const nomeCompleto = req.body.nomeCompleto.replaceAll(' ', '');
+            const pasta = path.join(__dirname, '..', 'uploads', nomeCompleto);
+            
+            try {
+                await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
+                cb(null, pasta);
+              } catch (err) {
+                cb(err, null);
+              }        
+            
+        },
+        filename: (req: any, file: any, cb: any) => {
+            cb(null, file.originalname);
+        }
+    })
+    
+    var upload = multer ({ 
+        storage: storage,
+     })
+}catch(error) {
+    console.log(
+        { 
+        error: error,
+        message: "Falha ao criar cliente"
+        })
+}
+    
 
 ///////////////////////////////////////////////
 
@@ -88,9 +97,11 @@ router.use(AuthMiddleware)
 const readColaborador = new ReadColaboradorController
 const updateColaborador = new UpdateColaboradorController
 const deleteColaborador = new DeleteColaboradorController
+const atualizalogin = new UpdateLoginController
 router.get("/colaboradores", AuthMiddleware, readColaborador.colaboradores)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
+router.put("/atualizalogin/:uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
 router.post("/logout", autenticacaoColaborador.logout)
 
@@ -112,7 +123,7 @@ const deleteCliente = new DeleteClienteController
 router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
 router.get("/cliente/:uuid", readCliente.cliente)
-router.put("/atualizarcliente/:uuid", upload.array('fotoDocumento', maxArquivos) , updateCliente.updateCliente)
+router.put("/atualizarcliente/:uuid", upload.array('fotoDocumento', 7) , updateCliente.updateCliente)
 router.delete("/deletarcliente/:uuid", deleteCliente.delete)
 
 const createAgendaCliente = new CreateAgendaClienteController   

@@ -5,11 +5,9 @@ import { prismaClient } from '../../database/prismaClient';
 export class CreateColaboradorController {
   async handle(req: Request, res: Response) {
     
-  
-
     try {
 
-      const {nomeCompleto, cpf, isAtivo, email, senha, acesso} = req.body
+      const {nomeCompleto, cpf, isAtivo, email, senha, acesso, cep, pais, estado, cidade, bairro,  rua, endereco} = req.body
       const hash_senha = await hash(senha, 12)
       
       const colaborador = await prismaClient.colaborador.create({
@@ -23,9 +21,19 @@ export class CreateColaboradorController {
             senha: hash_senha,
             acesso,
             autorizado: false
-
           }
         },
+        EnderecoColaborador: {
+          create: {
+            cep,
+            pais,
+            estado,
+            cidade,
+            bairro, 
+            rua,
+            endereco
+          }
+        }
       }
     })
     return res.status(201).json(colaborador)

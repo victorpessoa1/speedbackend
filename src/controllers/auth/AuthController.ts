@@ -33,6 +33,7 @@ import process from 'process';
       const  {colaborador_uuid} = login
 
       const acesso = login.acesso
+      req.acesso = login.acesso
 
     return res.json({login:{colaborador_uuid, email, acesso }, token})
      }
