@@ -9,6 +9,7 @@ export class ReadColaboradorController {
 
       const colaboradores = await prismaClient.colaborador.findMany({
         select:{
+          uuid: true,
           nomeCompleto: true,
           cpf: true,
           isAtivo: true,
