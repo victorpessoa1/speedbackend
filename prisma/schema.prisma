@@ -230,6 +230,8 @@ model Contrato {
   valorBem                Float
   planoNovo               Boolean
   isAtivo                 Boolean
+  long                    String
+  lat                     String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
