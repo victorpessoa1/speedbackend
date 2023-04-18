@@ -54,6 +54,7 @@ export class ReadColaboradorController {
           uuid
         },
         select:{
+          uuid: true,
           nomeCompleto: true,
           cpf: true,
           isAtivo: true,
