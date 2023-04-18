@@ -224,6 +224,8 @@ model Contrato {
   colaborador_uuid        String
   tipoConsorcio           TipoConsorcio @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_descricao String
+  financeira              Financeira    @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
+  financeira_id           Int
   // assinatura String
   dataCriado              DateTime      @default(now())
   diaVencimento           String
@@ -251,7 +253,8 @@ model Financeira {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Boleto Boleto[]
+  Boleto   Boleto[]
+  Contrato Contrato[]
 }
 
 model Boleto {
