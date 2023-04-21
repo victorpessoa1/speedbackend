@@ -211,8 +211,8 @@ model tarefas {
 }
 
 model historicoTarefas {
-  tarefas          tarefas     @relation(fields: [tarefa], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
-  tarefa           String
+  tarefas          tarefas     @relation(fields: [tarefa_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  tarefa_uuid      String
   uuid             String      @id @default(uuid())
   nometarefa       String
   nomecliente      String
