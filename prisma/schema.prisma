@@ -29,6 +29,7 @@ model Colaborador {
   login                  login[]
   agendaCliente          agendaCliente[]
   tarefas                tarefas[]
+  historicoTarefas       historicoTarefas[]
 }
 
 model login {
@@ -198,9 +199,34 @@ model tarefas {
   nomecolaborador  String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  dataentrega      String
+  dataentrega      DateTime?
   telefonecliente  String
   statustarefa     String
+  obs              String
+  aceito           Boolean
+
+  created_at       DateTime           @default(now())
+  updated_at       DateTime           @updatedAt
+  historicoTarefas historicoTarefas[]
+}
+
+model historicoTarefas {
+  tarefas          tarefas     @relation(fields: [tarefa], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  tarefa           String
+  uuid             String      @id @default(uuid())
+  nometarefa       String
+  nomecliente      String
+  nomecolaborador  String
+  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  colaborador_uuid String
+  dataentrega      DateTime?
+  telefonecliente  String
+  statustarefa     String
+  obs              String
+  aceito           Boolean
+
+  movimentacao   String // recusado / atualizado / timeout / mandado pelo front
+  atualizado_por String // colaborador / timeout
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
