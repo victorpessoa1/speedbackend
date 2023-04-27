@@ -23,10 +23,9 @@ export class UpdateTarefaController {
                 dataentrega,
                 obs,
                 aceito,
-                atualizado_por,
                 colaborador_uuid,
-                movimentacao,
-                tarefas
+                atualizado_por,
+                movimentacao
               }
             }
           )
