@@ -196,10 +196,9 @@ model tarefas {
   uuid             String      @id @default(uuid())
   nometarefa       String
   nomecliente      String
-  nomecolaborador  String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  dataentrega      DateTime?
+  dataentrega      String?
   telefonecliente  String
   statustarefa     String
   obs              String
@@ -216,7 +215,6 @@ model historicoTarefas {
   uuid             String      @id @default(uuid())
   nometarefa       String
   nomecliente      String
-  nomecolaborador  String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
   dataentrega      DateTime?

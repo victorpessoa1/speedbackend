@@ -14,7 +14,6 @@ export class CreateHistoricoTarefaController {
           tarefa_uuid,
           nometarefa,
           nomecliente,
-          nomecolaborador,
           telefonecliente,
           statustarefa: "em espera",
           colaborador_uuid,

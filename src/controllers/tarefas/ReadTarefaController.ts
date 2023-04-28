@@ -6,17 +6,18 @@ export class ReadTarefaController {
   async exibirTarefas(req: Request, res: Response) {
 
     try {
-      const clientes = await prismaClient.tarefas.findMany()
+      const tarefas = await prismaClient.tarefas.findMany()
+      
+      const historicotarefas = await prismaClient.historicoTarefas.findMany()
   
-      return res.status(200).json(clientes)
+      return res.status(200).json({tarefas, historicotarefas})
 
     } catch (error) {
       return res.status(500).json({
         error: error,
         message: 'Erro ao listar tarefas'
     })
-    }
-  
+    }   
   }
 
 

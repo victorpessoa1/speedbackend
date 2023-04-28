@@ -17,7 +17,6 @@ export class UpdateTarefaController {
               data: { 
                 nometarefa,
                 nomecliente,
-                nomecolaborador,
                 telefonecliente,
                 statustarefa,
                 dataentrega,

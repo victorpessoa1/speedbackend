@@ -13,11 +13,10 @@ export class CreateTarefaController {
         data: {
           nometarefa,
           nomecliente,
-          nomecolaborador,
           telefonecliente,
           statustarefa: "em espera",
           colaborador_uuid,
-          dataentrega,
+          dataentrega: "em espera",
           obs,
           aceito: false
         },
