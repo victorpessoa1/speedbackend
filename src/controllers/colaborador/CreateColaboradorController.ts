@@ -7,7 +7,8 @@ export class CreateColaboradorController {
     
     try {
 
-      const {nomeCompleto, cpf, isAtivo, email, senha, acesso, cep, pais, estado, cidade, bairro,  rua, endereco} = req.body
+      const {nomeCompleto, cpf, isAtivo, email, senha, acesso, cep, pais, estado, cidade, bairro,  rua, endereco, dataEmissao,
+        localemissao, eCivel, nascimento, oExpedidor, rg, sexo, id_botconversa} = req.body
       const hash_senha = await hash(senha, 12)
       
       const colaborador = await prismaClient.colaborador.create({
@@ -32,6 +33,18 @@ export class CreateColaboradorController {
             bairro, 
             rua,
             endereco
+          }
+        },
+        DPessoaisColaborador: {
+          create: {
+            dataEmissao,
+            localemissao,
+            eCivel,
+            nascimento,
+            oExpedidor,
+            rg,
+            sexo,
+            id_botconversa
           }
         }
       }

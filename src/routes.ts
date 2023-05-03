@@ -132,7 +132,7 @@ const readAgendaCliente = new ReadAgendaClienteController
 const updateAgendaCliente = new UpdateAgendaClienteController
 const deleteAgendaCliente = new DeleteAgendaClienteController
 
-router.post("/cadastraragendacliente/:colaborador_uuid", createAgendaCliente.handle)
+router.post("/cadastraragendacliente", createAgendaCliente.handle)
 router.get("/agendaclientes", readAgendaCliente.exibirClientes)
 router.get("/agendacliente/:uuid", readAgendaCliente.exibirCliente)
 router.put("/atualizaragendacliente/:uuid", updateAgendaCliente.update)

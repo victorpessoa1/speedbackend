@@ -73,6 +73,7 @@ model DPessoaisColaborador {
   sexo             String
   rg               String      @unique
   dataEmissao      DateTime
+  localemissao     String?
   oExpedidor       String
   eCivel           String
   id_botconversa   String?
@@ -153,6 +154,7 @@ model DPessoaisCliente {
   sexo           String
   rg             String
   dataEmissao    DateTime
+  localemissao   String?
   oExpedidor     String
   fotoDocumento  String
   profissao      String
@@ -179,17 +181,21 @@ model DadosBancariosCliente {
 }
 
 model agendaCliente {
-  uuid             String      @id @default(uuid())
-  cliente          String
-  telefone         String      @unique
-  whatsapp         String
-  dataParaLigar    String
-  horaParaLigar    String
-  colaborador_uuid String
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  uuid       String   @id @default(uuid())
+  criado_por String
+  privado    Boolean
+  note       String
+  startTime  DateTime
+  endTime    DateTime
+  conclusao  Boolean
+  subject    String
+  prioridade BigInt
+  isAllDay   Boolean
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at      DateTime     @default(now())
+  updated_at      DateTime     @updatedAt
+  Colaborador     Colaborador? @relation(fields: [colaboradorUuid], references: [uuid])
+  colaboradorUuid String?
 }
 
 model tarefas {
@@ -200,6 +206,7 @@ model tarefas {
   colaborador_uuid String
   dataentrega      String?
   telefonecliente  String
+  horapraligar     String?
   statustarefa     String
   obs              String
   aceito           Boolean
@@ -219,6 +226,7 @@ model historicoTarefas {
   colaborador_uuid String
   dataentrega      DateTime?
   telefonecliente  String
+  horapraligar     String?
   statustarefa     String
   obs              String
   aceito           Boolean
@@ -250,7 +258,10 @@ model Contrato {
   tipoConsorcio_descricao String
   financeira              Financeira    @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
   financeira_id           Int
-  // assinatura String
+  assinatura_cliente      Int[]
+  assinatura_colaborador  Int[]
+  assinatura_testemunha_a Int[]
+  assinatura_testemunha_b Int[]
   dataCriado              DateTime      @default(now())
   diaVencimento           String
   valorBem                Float

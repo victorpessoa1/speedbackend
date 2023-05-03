@@ -7,13 +7,14 @@ export class CreateTarefaController {
 
     const {colaborador_uuid} = req.params
     try {
-      const {  nometarefa, nomecliente, nomecolaborador, telefonecliente, dataentrega, obs } = req.body
+      const {  nometarefa, nomecliente, nomecolaborador, telefonecliente, horapraligar, dataentrega, obs } = req.body
 
       const tarefa = await prismaClient.tarefas.create({
         data: {
           nometarefa,
           nomecliente,
           telefonecliente,
+          horapraligar,
           statustarefa: "em espera",
           colaborador_uuid,
           dataentrega: "em espera",

@@ -13,7 +13,7 @@ export class CreateClienteController {
     
     try {
       const {
-            nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
+            nomeCompleto, cpf, isAtivo, dataEmissao, localemissao, eCivel, nascimento, oExpedidor, rg, sexo,
             profissao, rendimento, email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua
           } = req.body
 
@@ -26,6 +26,7 @@ export class CreateClienteController {
           DPessoaisCliente: {
             create: {
               dataEmissao,
+              localemissao,
               eCivel,
               email,
               nascimento,

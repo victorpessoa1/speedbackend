@@ -7,7 +7,7 @@ export class CreateHistoricoTarefaController {
 
     const {colaborador_uuid} = req.params
     try {
-      const {  tarefa_uuid, nometarefa, nomecliente, nomecolaborador, telefonecliente, dataentrega, obs, atualizado_por, movimentacao } = req.body
+      const {  tarefa_uuid, nometarefa, nomecliente, horapraligar, telefonecliente, dataentrega, obs, movimentacao } = req.body
 
       const historicoTarefa = await prismaClient.historicoTarefas.create({
         data: {
@@ -15,6 +15,7 @@ export class CreateHistoricoTarefaController {
           nometarefa,
           nomecliente,
           telefonecliente,
+          horapraligar,
           statustarefa: "em espera",
           colaborador_uuid,
           dataentrega,

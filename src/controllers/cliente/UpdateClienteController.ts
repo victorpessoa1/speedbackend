@@ -10,7 +10,7 @@ export class UpdateClienteController {
 
 
     try {
-    const {nomeCompleto, cpf, isAtivo, dataEmissao, eCivel, nascimento, oExpedidor, rg, sexo,
+    const {nomeCompleto, cpf, isAtivo, dataEmissao, localemissao, eCivel, nascimento, oExpedidor, rg, sexo,
       profissao, rendimento, email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua} = req.body  
     const {uuid} = req.params    
 
@@ -43,6 +43,7 @@ export class UpdateClienteController {
                     where: { cliente_uuid: uuid, },
                     data: {
                       dataEmissao,
+                      localemissao,
                       eCivel,
                       email,
                       nascimento,

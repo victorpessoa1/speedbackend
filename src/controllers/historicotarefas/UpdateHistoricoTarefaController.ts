@@ -5,7 +5,7 @@ export class UpdateTarefaController {
 
   async update(req: Request, res: Response) {
 
-    const {  nometarefa, nomecliente, nomecolaborador, telefonecliente, statustarefa, dataentrega, obs, aceito, atualizado_por, colaborador_uuid, movimentacao, tarefas } = req.body
+    const {  nometarefa, nomecliente, telefonecliente, horapraligar, statustarefa, dataentrega, obs, aceito, atualizado_por, colaborador_uuid, movimentacao, tarefas } = req.body
     const {uuid} = req.params
 
     try {
@@ -18,6 +18,7 @@ export class UpdateTarefaController {
                 nometarefa,
                 nomecliente,
                 telefonecliente,
+                horapraligar,
                 statustarefa,
                 dataentrega,
                 obs,

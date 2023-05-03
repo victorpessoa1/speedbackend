@@ -29,7 +29,31 @@ export class ReadColaboradorController {
               estado: true,
               pais: true,
               rua: true
-
+            }
+          },
+          DPessoaisColaborador: {
+            select: {
+              dataEmissao: true,
+              localemissao: true,
+              eCivel: true,
+              nascimento: true,
+              oExpedidor: true,
+              rg: true,
+              sexo: true,
+              id_botconversa: true
+            }
+          },
+          colaborador_has_funcao: {
+            select: {
+              funcao: true,
+              funcao_uuid: true,
+            }
+          },
+          Equipe: {
+            select: {
+              idEquipe: true,
+              lider: true,
+              vendedor: true,
             }
           }
         }
@@ -74,7 +98,31 @@ export class ReadColaboradorController {
               estado: true,
               pais: true,
               rua: true
-
+            }
+          },
+          DPessoaisColaborador: {
+            select: {
+              dataEmissao: true,
+              localemissao: true,
+              eCivel: true,
+              nascimento: true,
+              oExpedidor: true,
+              rg: true,
+              sexo: true,
+              id_botconversa: true
+            }
+          },
+          colaborador_has_funcao: {
+            select: {
+              funcao: true,
+              funcao_uuid: true,
+            }
+          },
+          Equipe: {
+            select: {
+              idEquipe: true,
+              lider: true,
+              vendedor: true,
             }
           }
         }

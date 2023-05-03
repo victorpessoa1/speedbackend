@@ -5,18 +5,20 @@ export class CreateAgendaClienteController {
  
   async handle(req: Request, res: Response) {
 
-    const {colaborador_uuid} = req.params
     try {
-      const {  cliente, telefone, whatsapp, dataParaLigar, horaParaLigar } = req.body
+      const { note, startTime, endTime, subject, prioridade} = req.body
 
       const agendaCliente = await prismaClient.agendaCliente.create({
         data: {
-          cliente,
-          telefone,
-          whatsapp,
-          dataParaLigar,
-          horaParaLigar,
-          colaborador_uuid,
+          criado_por: req.uuid,
+          note,
+          startTime,
+          endTime,
+          conclusao: false,
+          subject,
+          prioridade,
+          privado: false,
+          isAllDay: false
         },
       })
       

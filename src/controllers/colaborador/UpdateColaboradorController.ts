@@ -4,7 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateColaboradorController {
 
   async update(req: Request, res: Response) {
-    const {nomeCompleto, cpf, isAtivo, nascimento, sexo, rg, oExpedidor, dataEmissao, eCivel, id_botconversa,
+    const {nomeCompleto, cpf, isAtivo, nascimento, sexo, rg, oExpedidor, dataEmissao, localemissao, eCivel, id_botconversa,
       cep, pais, estado, cidade, bairro, rua, endereco, acesso, autorizado } = req.body
     const {uuid} = req.params
 
