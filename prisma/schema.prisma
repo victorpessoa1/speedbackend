@@ -189,7 +189,7 @@ model agendaCliente {
   endTime    DateTime
   conclusao  Boolean
   subject    String
-  prioridade BigInt
+  prioridade Int
   isAllDay   Boolean
 
   created_at      DateTime     @default(now())
