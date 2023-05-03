@@ -22,7 +22,7 @@ export class CreateHistoricoTarefaController {
           obs,
           aceito: false,
           atualizado_por: colaborador_uuid,
-          movimentacao: "não sei",        
+          movimentacao,        
         },
 
       })
