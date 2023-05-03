@@ -3,10 +3,33 @@ import { prismaClient } from '../../database/prismaClient';
 
 export class ReadAgendaClienteController {
   
-  async exibirClientes(req: Request, res: Response) {
+  async exibirClientesGlobal(req: Request, res: Response) {
 
     try {
       const clientes = await prismaClient.agendaCliente.findMany()
+  
+      return res.status(200).json(clientes)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao listar todos os clientes'
+    })
+    }
+  
+  }
+
+  async exibirClientes(req: Request, res: Response) {
+
+    try {
+      const clientes = await prismaClient.agendaCliente.findMany({
+        where: {
+          colaboradorUuid: req.uuid,
+          AND: {
+            privado: false
+          }
+        }
+      })
   
       return res.status(200).json(clientes)
 
