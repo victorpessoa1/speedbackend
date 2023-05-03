@@ -5,7 +5,7 @@ export class CreateAgendaClienteController {
  
   async handle(req: Request, res: Response) {
 
-      const { note, startTime, endTime, subject, prioridade} = req.body
+      const { note, startTime, endTime, subject, prioridade, privado, isAllDay} = req.body
 
       const agendaCliente = await prismaClient.agendaCliente.create({
         data: {
@@ -16,8 +16,8 @@ export class CreateAgendaClienteController {
           conclusao: false,
           subject,
           prioridade,
-          privado: false,
-          isAllDay: false
+          privado,
+          isAllDay
         },
       })
       
