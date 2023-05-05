@@ -4,7 +4,7 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateFinanceiraController {
 
   async update(req: Request, res: Response) {
-    const {cnpj, contrato, email, gerente, razaoSocial} = req.body
+    const {cnpj, email, gerente, razaoSocial} = req.body
     const {financeira_id} = req.params
 
     try {
@@ -13,7 +13,6 @@ export class UpdateFinanceiraController {
               where: { financeira_id : Number(financeira_id) },
               data: { 
                 cnpj,
-                contrato, 
                 email, 
                 gerente, 
                 razaoSocial

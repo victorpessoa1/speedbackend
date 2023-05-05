@@ -281,7 +281,6 @@ model Financeira {
   financeira_id Int    @id @default(autoincrement())
   cnpj          String @unique
   razaoSocial   String @unique
-  contrato      String @unique
   gerente       String
   email         String
 

@@ -190,7 +190,8 @@ const updateFinanceira = new UpdateFinanceiraController
 const deleteFinanceira = new DeleteFinanceiraController
 
 router.post("/cadastrarfinanceira", createFinanceira.handle)
-router.get("/financeiras", readFinanceira.exibirFinanceira)
+router.get("/financeiras", readFinanceira.exibirFinanceiras)
+router.get("/financeira/id", readFinanceira.exibirFinanceira)
 router.put("/atualizarfinanceira/:financeira_id", updateFinanceira.update)
 router.delete("/deletarfinanceira/:financeira_id", deleteFinanceira.delete)
 

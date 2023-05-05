@@ -6,12 +6,11 @@ export class CreateFinanceiraController {
   async handle(req: Request, res: Response) {
 
     try {
-      const {cnpj, contrato, email, gerente, razaoSocial} = req.body
+      const {cnpj, email, gerente, razaoSocial} = req.body
 
       const financeira = await prismaClient.financeira.create({
         data: {
             cnpj,
-            contrato,
             email,
             gerente,
             razaoSocial,
