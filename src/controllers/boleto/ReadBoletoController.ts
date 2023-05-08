@@ -6,7 +6,17 @@ export class ReadBoletoController {
   async exibirBoleto(req: Request, res: Response) {
 
     try {
-      const boletos = await prismaClient.boleto.findMany()
+      const boletos = await prismaClient.boleto.findMany({
+        include:{
+          Contrato: {
+            include: {
+              cliente: true,
+              colaborador: true
+            }
+          },
+          Financeira: true,
+        }
+      })
   
       return res.status(200).json(boletos)
 
