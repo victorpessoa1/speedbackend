@@ -204,12 +204,12 @@ model tarefas {
   nomecliente      String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  dataentrega      String?
+  dataentrega      String?     @default("em espera")
   telefonecliente  String
   horapraligar     String?
-  statustarefa     String
+  statustarefa     String      @default("em espera")
   obs              String
-  aceito           Boolean
+  aceito           Boolean     @default(false)
 
   created_at       DateTime           @default(now())
   updated_at       DateTime           @updatedAt

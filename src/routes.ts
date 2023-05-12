@@ -144,7 +144,8 @@ const readTarefa = new ReadTarefaController
 const updateTarefa = new UpdateTarefaController
 const deleteTarefa = new DeleteTarefaController
 
-router.post("/cadastrartarefa/:colaborador_uuid", createTarefa.handle)
+router.post("/cadastrartarefa/:colaborador_uuid", createTarefa.criarumatarefa)
+router.post("/cadastrartarefas", createTarefa.criarvariastarefas)
 router.get("/tarefas", readTarefa.exibirTarefas)
 router.get("/tarefa/:uuid", readTarefa.exibirTarefa)
 router.put("/atualizartarefa/:uuid", updateTarefa.update)

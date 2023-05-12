@@ -3,37 +3,60 @@ import { prismaClient } from '../../database/prismaClient';
 
 export class CreateTarefaController {
  
-  async handle(req: Request, res: Response) {
+  async criarvariastarefas(req: Request, res: Response) {
 
-    const {colaborador_uuid} = req.params
     try {
-      const {  nometarefa, nomecliente, nomecolaborador, telefonecliente, horapraligar, dataentrega, obs } = req.body
-
-      const tarefa = await prismaClient.tarefas.create({
-        data: {
-          nometarefa,
-          nomecliente,
-          telefonecliente,
-          horapraligar,
-          statustarefa: "em espera",
-          colaborador_uuid,
-          dataentrega: "em espera",
-          obs,
-          aceito: false
-        },
-
+      const { listaTarefas } = req.body
+  
+      console.log(req.body);
+      
+      const tarefa = await prismaClient.tarefas.createMany({
+        data: listaTarefas
+        
+  
       })
-      
-    
-      return res.status(201).json({tarefa, message: "tarefa adicionado à agenda com sucesso"})
-      
+  
+        return res.status(201).json({tarefa, message: "tarefas adicionadas à agenda com sucesso"})
+
     } catch (error) {
-     return res.status(500).json(
-      { 
-      error: error,
-      message: "Falha ao criar tarefa"
-      })
-    }
+      return res.status(500).json(
+       { 
+       error: error,
+       message: "Falha ao criar tarefas"
+       })
+     }
+  }
+
+  async criarumatarefa(req: Request, res: Response) {
+
+    try{
+
+      const {colaborador_uuid} = req.params
+        const {  nometarefa, nomecliente, telefonecliente, horapraligar, obs } = req.body
+      
+        console.log(colaborador_uuid);
+        
+
+        const tarefa = await prismaClient.tarefas.create({
+          data: {
+            nometarefa,
+            nomecliente,
+            telefonecliente,
+            horapraligar,
+            colaborador_uuid: colaborador_uuid,
+            obs,
+          },
+  
+        })
+        return res.status(201).json({tarefa, message: "tarefa adicionado à agenda com sucesso"})
+    }catch (error) {
+      return res.status(500).json(
+       { 
+       error: error,
+       message: "Falha ao criar tarefas"
+       })
+     }
+      
+    } 
   
   }
-}
