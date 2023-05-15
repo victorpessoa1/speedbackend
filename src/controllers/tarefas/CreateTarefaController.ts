@@ -7,9 +7,7 @@ export class CreateTarefaController {
 
     try {
       const { listaTarefas } = req.body
-  
-      console.log(req.body);
-      
+        
       const tarefa = await prismaClient.tarefas.createMany({
         data: listaTarefas
         
@@ -32,10 +30,7 @@ export class CreateTarefaController {
     try{
 
       const {colaborador_uuid} = req.params
-        const {  nometarefa, nomecliente, telefonecliente, horapraligar, obs } = req.body
-      
-        console.log(colaborador_uuid);
-        
+        const {  nometarefa, nomecliente, telefonecliente, horapraligar, obs } = req.body        
 
         const tarefa = await prismaClient.tarefas.create({
           data: {
