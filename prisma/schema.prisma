@@ -224,7 +224,7 @@ model historicoTarefas {
   nomecliente      String
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
   colaborador_uuid String
-  dataentrega      DateTime?
+  dataentrega      String?
   telefonecliente  String
   horapraligar     String?
   statustarefa     String

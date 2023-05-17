@@ -18,7 +18,7 @@ export class UpdateTarefaController {
       })
     }
     
-    const {atualizado_por, movimentacao} = req.body
+    const {movimentacao} = req.body
 
     
     try {
@@ -69,7 +69,7 @@ export class UpdateTarefaController {
 
 
 
-    const {  nometarefa, nomecliente, nomecolaborador, telefonecliente, statustarefa, dataentrega, obs, aceito } = req.body
+    const {  nometarefa, nomecliente, telefonecliente, statustarefa, dataentrega, obs, aceito } = req.body
 
     try {
       const tarefaAtualizada = await prismaClient.tarefas.update(
