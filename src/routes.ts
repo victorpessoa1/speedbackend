@@ -149,6 +149,7 @@ router.post("/cadastrartarefas", createTarefa.criarvariastarefas)
 router.get("/tarefas", readTarefa.exibirTarefas)
 router.get("/tarefa/:uuid", readTarefa.exibirTarefa)
 router.put("/atualizartarefa/:uuid", updateTarefa.update)
+router.put("/atualizartarefanegada/:uuid", updateTarefa.updatenegando)
 router.delete("/deletartarefa/:uuid", deleteTarefa.delete)
 
 const createBoleto = new CreateBoletoController
