@@ -91,6 +91,8 @@ export class UpdateTarefaController {
     }
   }
 
+  ///////////////////////////////////////////////////
+
   async updatenegando(req: Request, res: Response) {
     const {uuid} = req.params
 
@@ -106,10 +108,10 @@ export class UpdateTarefaController {
       })
     }
     
-    const {movimentacao, atualizado_por} = req.body
-
-    
     try {
+      
+      const {movimentacao, atualizado_por} = req.body
+    
       const historicotarefa = await prismaClient.historicoTarefas.upsert({
         
         where: {uuid},
@@ -124,7 +126,7 @@ export class UpdateTarefaController {
             dataentrega: tarefaantiga?.dataentrega,
             obs: String(tarefaantiga?.obs),
             aceito: Boolean(tarefaantiga?.aceito),
-            atualizado_por,
+            atualizado_por: uuid,
             movimentacao,
   
         },
@@ -140,7 +142,7 @@ export class UpdateTarefaController {
             dataentrega: tarefaantiga.dataentrega,
             obs: String(tarefaantiga.obs),
             aceito: Boolean(tarefaantiga.aceito),
-            atualizado_por,
+            atualizado_por: uuid,
             movimentacao,
             
   
