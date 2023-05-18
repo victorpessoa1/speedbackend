@@ -183,7 +183,7 @@ model DadosBancariosCliente {
 model agendaCliente {
   uuid       String   @id @default(uuid())
   criado_por String
-  privado    Boolean  @default(false)
+  privado    Boolean  @default(true)
   note       String
   startTime  DateTime
   endTime    DateTime
