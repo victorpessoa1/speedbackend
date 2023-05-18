@@ -30,7 +30,7 @@ export class CreateAgendaClienteController {
       return res.status(500).json(
        { 
        error: error,
-       message: "Falha ao criar historico de tarefa"
+       message: "Falha ao criar agenda"
        })
      }
   
