@@ -9,7 +9,10 @@ export class CreateAgendaClienteController {
     try{
 
       const { note, startTime, endTime, subject, prioridade, privado, isAllDay} = req.body
-
+      var { colaboradorUuid } = req.body
+      if (!colaboradorUuid) {
+        colaboradorUuid = req.uuid
+      }
       const agendaCliente = await prismaClient.agendaCliente.create({
         data: {
           criado_por: req.uuid,
@@ -20,7 +23,8 @@ export class CreateAgendaClienteController {
           subject,
           prioridade,
           privado,
-          isAllDay
+          isAllDay,
+          colaboradorUuid
         },
       })
       

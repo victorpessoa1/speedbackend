@@ -19,15 +19,21 @@ export class ReadAgendaClienteController {
   
   }
 
-  async exibirClientes(req: Request, res: Response) {
-
+  async exibirClientesDoColaborador(req: Request, res: Response) {
+    console.log(req.uuid)
     try {
       const clientes = await prismaClient.agendaCliente.findMany({
         where: {
-          colaboradorUuid: req.uuid,
-          AND: {
-            privado: false
-          }
+          OR: [
+            {
+              privado: true,
+            },
+              {
+              colaboradorUuid: {
+                contains: req.uuid
+              }
+            }
+          ]
         }
       })
   
