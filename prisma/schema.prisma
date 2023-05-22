@@ -289,6 +289,21 @@ model Financeira {
 
   Boleto   Boleto[]
   Contrato Contrato[]
+  Grupo    Grupo[]
+}
+
+model Grupo {
+  uuid          String     @id @default(uuid())
+  financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id])
+  financeira_id Int
+  grupo         String
+  Cota          Cota[]
+}
+
+model Cota {
+  uuid     String @id @default(uuid())
+  grupo    Grupo  @relation(fields: [grupo_id], references: [uuid])
+  grupo_id String
 }
 
 model Boleto {
@@ -302,8 +317,8 @@ model Boleto {
   parcela       Float
   valor         Float
   vencimento    DateTime
-  isPago        String
-  dataPagamento String
+  isPago        String?
+  dataPagamento String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
