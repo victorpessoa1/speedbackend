@@ -135,4 +135,30 @@ export class ReadTarefaController {
     })
     }
   }
+
+  async exibirTarefasAceitas(req: Request, res: Response) {
+    try {
+      const cliente = await prismaClient.tarefas.findMany({
+        where: {
+          statustarefa: "aceito"
+        },
+        include: {
+          historicoTarefas: true,
+          colaborador: {
+            select: {
+              nomeCompleto: true,
+            }
+          }
+        }
+      })
+    
+    return res.status(200).json(cliente)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Tarefa não encontrado'
+    })
+    }
+  }
 }
