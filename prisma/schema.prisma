@@ -299,9 +299,11 @@ model Boleto {
   Financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: Cascade)
   financeira_id Int
 
-  parcela    Float
-  valor      Float
-  vencimento DateTime
+  parcela       Float
+  valor         Float
+  vencimento    DateTime
+  isPago        String
+  dataPagamento String
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt

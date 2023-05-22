@@ -41,7 +41,8 @@ export class ReadClienteController {
               rua: true,
               endereco: true,
             }
-          }
+          },
+          colaborador: true,
         }
       })
   
