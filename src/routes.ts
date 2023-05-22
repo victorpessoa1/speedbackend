@@ -102,7 +102,9 @@ const readColaborador = new ReadColaboradorController
 const updateColaborador = new UpdateColaboradorController
 const deleteColaborador = new DeleteColaboradorController
 const atualizalogin = new UpdateLoginController
-router.get("/colaboradores", AuthMiddleware, readColaborador.colaboradores)
+router.get("/colaboradores", readColaborador.colaboradores)
+router.get("/colaboradoresativos", readColaborador.colaboradoresAtivos)
+router.get("/colaboradoresinativos", readColaborador.colaboradoresInativos)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.put("/atualizalogin/:uuid", atualizalogin.update)
@@ -174,7 +176,9 @@ const updateBoleto = new UpdateBoletoController
 const deleteBoleto = new DeleteBoletoController
 
 router.post("/cadastrarboleto", createBoleto.handle)
-router.get("/boletos", readBoleto.exibirBoleto)
+router.get("/boletos", readBoleto.exibirBoletos)
+router.get("/boletosabertosdecolaborador/:colaborador_uuid", readBoleto.exibirBoletosAbertosDeUmColaborador)
+router.get("/boletosabertosdecliente/:cliente_uuid", readBoleto.exibirBoletosAbertosDeUmCliente)
 router.put("/atualizarboleto/:boleto_id", updateBoleto.update)
 router.delete("/deletarboleto/:boleto_id", deleteBoleto.delete)
 

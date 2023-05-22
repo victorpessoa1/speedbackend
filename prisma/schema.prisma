@@ -317,7 +317,7 @@ model Boleto {
   parcela       Float
   valor         Float
   vencimento    DateTime
-  isPago        String?
+  isPago        Boolean?
   dataPagamento String?
 
   created_at DateTime @default(now())
