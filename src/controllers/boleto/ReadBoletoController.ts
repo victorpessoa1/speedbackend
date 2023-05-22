@@ -14,7 +14,15 @@ export class ReadBoletoController {
               colaborador: true
             }
           },
-          Financeira: true,
+          Financeira: {
+            include: {
+              Grupo: {
+                include: {
+                  Cota: true
+                }
+              }
+            }
+          },
         }
       })
   
