@@ -133,5 +133,116 @@ export class ReadContratoController {
     return res.status(200).json(contratos)
   }
 
+  async exibirContratosAtivos(req: Request, res: Response) {
+        
+    const contratos = await prismaClient.contrato.findMany({
+      where: {isAtivo: true},
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosInativos(req: Request, res: Response) {
+        
+    const contratos = await prismaClient.contrato.findMany({
+      where: {isAtivo: false},
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosPendentes(req: Request, res: Response) {
+        
+    const contratos = await prismaClient.contrato.findMany({
+      where: {isAtivo: true},
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
+
+  async exibirContratosDeUmCliente(req: Request, res: Response) {
+        
+    const contratos = await prismaClient.contrato.findMany({
+      where: {cliente_uuid: req.params},
+        
+        include: {
+            Boleto: {
+                include: {
+                    Financeira: true,
+                }
+            },
+            cliente: true,
+            colaborador:{
+                include: {
+                    Equipe: true,
+
+                    
+                }
+            },
+            Contemplacao: true,
+
+            
+        }
+    })
+
+    return res.status(200).json(contratos)
+  }
   
 }
