@@ -56,4 +56,55 @@ export class ReadTarefaController {
     }
     
   }
+
+  async exibirTarefasEmEspera(req: Request, res: Response) {
+    try {
+      const cliente = await prismaClient.tarefas.findMany({
+        where: {
+          statustarefa: "em espera"
+        },
+        include: {
+          historicoTarefas: true,
+          colaborador: {
+            select: {
+              nomeCompleto: true,
+            }
+          }
+        }
+      })
+    
+    return res.status(200).json(cliente)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Tarefa não encontrado'
+    })
+    }
+  }
+  async exibirTarefasConcluidas(req: Request, res: Response) {
+    try {
+      const cliente = await prismaClient.tarefas.findMany({
+        where: {
+          statustarefa: "concluida"
+        },
+        include: {
+          historicoTarefas: true,
+          colaborador: {
+            select: {
+              nomeCompleto: true,
+            }
+          }
+        }
+      })
+    
+    return res.status(200).json(cliente)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Tarefa não encontrado'
+    })
+    }
+  }
 }
