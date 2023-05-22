@@ -44,6 +44,10 @@ import { ReadTarefaController } from './controllers/tarefas/ReadTarefaController
 import path from 'path'
 import fs from 'fs-extra';
 import { UpdateLoginController } from './controllers/auth/UpdateLoginController';
+import { CreateHistoricoTarefaController } from './controllers/historicotarefas/CreateHistoricoTarefaController';
+import { DeleteHistoricoTarefaController } from './controllers/historicotarefas/DeleteHistoricoTarefaController';
+import { ReadHistoricoTarefaController } from './controllers/historicotarefas/ReadHistoricoTarefaController';
+import { UpdateHistoricoTarefaController } from './controllers/historicotarefas/UpdateHistoricoTarefaController';
 
 const router = Router()
 
@@ -134,7 +138,7 @@ const deleteAgendaCliente = new DeleteAgendaClienteController
 
 router.post("/cadastraragendacliente", createAgendaCliente.handle)
 router.get("/agendaclientes", readAgendaCliente.exibirClientesGlobal) // TODOS os clientes
-router.get("/agendaclientespessoal", readAgendaCliente.exibirClientes) // clientes públicos e criados colaborador
+router.get("/agendaclientespessoal", readAgendaCliente.exibirClientesDoColaborador) // clientes públicos e criados colaborador
 router.get("/agendacliente/:uuid", readAgendaCliente.exibirCliente)
 router.put("/atualizaragendacliente/:uuid", updateAgendaCliente.update)
 router.delete("/deletaragendacliente/:uuid", deleteAgendaCliente.delete)
@@ -150,9 +154,18 @@ router.get("/tarefas", readTarefa.exibirTarefas)
 router.get("/tarefa/:uuid", readTarefa.exibirTarefa)
 router.get("/tarefasemespera", readTarefa.exibirTarefasEmEspera)
 router.get("/tarefasconcluidas", readTarefa.exibirTarefasConcluidas)
+router.get("/tarefasnaoconcluidas", readTarefa.exibirTarefasNaoConcluidas)
 router.put("/atualizartarefa/:uuid", updateTarefa.update)
 router.put("/atualizartarefanegada/:uuid", updateTarefa.updatenegando)
 router.delete("/deletartarefa/:uuid", deleteTarefa.delete)
+
+const createHistoricoTarefa = new CreateHistoricoTarefaController   
+const readHistoricoTarefa = new ReadHistoricoTarefaController
+const updateHistoricoTarefa = new UpdateHistoricoTarefaController
+const deleteHistoricoTarefa = new DeleteHistoricoTarefaController
+
+router.get("/historicotarefas", readHistoricoTarefa.exibirHistoricoTarefas)
+router.delete("/deletarhistoricotarefa/:uuid", deleteHistoricoTarefa.delete)
 
 const createBoleto = new CreateBoletoController
 const readBoleto = new ReadBoletoController

@@ -1,7 +1,7 @@
 import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class UpdateTarefaController {
+export class UpdateHistoricoTarefaController {
 
   async update(req: Request, res: Response) {
 
