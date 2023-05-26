@@ -69,10 +69,10 @@ model EnderecoColaborador {
 model DPessoaisColaborador {
   colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid String      @id
-  nascimento       DateTime
+  nascimento       String
   sexo             String
   rg               String      @unique
-  dataEmissao      DateTime
+  dataEmissao      String
   localemissao     String?
   oExpedidor       String
   eCivel           String
@@ -148,12 +148,12 @@ model EnderecoCliente {
 }
 
 model DPessoaisCliente {
-  cliente        Cliente  @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  cliente_uuid   String   @id
-  nascimento     DateTime
+  cliente        Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  cliente_uuid   String  @id
+  nascimento     String
   sexo           String
   rg             String
-  dataEmissao    DateTime
+  dataEmissao    String
   localemissao   String?
   oExpedidor     String
   fotoDocumento  String
@@ -298,12 +298,18 @@ model Grupo {
   financeira_id Int
   grupo         String
   Cota          Cota[]
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 model Cota {
   uuid     String @id @default(uuid())
   grupo    Grupo  @relation(fields: [grupo_id], references: [uuid])
   grupo_id String
+
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
 }
 
 model Boleto {
@@ -316,18 +322,19 @@ model Boleto {
 
   parcela       Float
   valor         Float
-  vencimento    DateTime
+  vencimento    String
   isPago        Boolean?
   dataPagamento String?
+  obs           String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
 
 model Contemplacao {
-  contemplacao_id  Int      @id @default(autoincrement())
+  contemplacao_id  Int    @id @default(autoincrement())
   tipoContemplacao String
-  data             DateTime
+  data             String
   lance            Float
 
   Contrato    Contrato @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
