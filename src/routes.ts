@@ -176,6 +176,7 @@ const updateBoleto = new UpdateBoletoController
 const deleteBoleto = new DeleteBoletoController
 
 router.post("/cadastrarboleto", createBoleto.handle)
+router.post("/cadastrarboletos/", createBoleto.criarvariosboletos)
 router.get("/boletos", readBoleto.exibirBoletos)
 router.get("/boletosabertosdecolaborador/:colaborador_uuid", readBoleto.exibirBoletosAbertosDeUmColaborador)
 router.get("/boletosabertosdecliente/:cliente_uuid", readBoleto.exibirBoletosAbertosDeUmCliente)
