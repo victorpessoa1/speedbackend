@@ -28,7 +28,7 @@ export class CreateBoletoController {
   async handle(req: Request, res: Response) {
 
     try {
-      const {parcela, valor, vencimento, contrato_id, financeira_id} = req.body
+      const {parcela, valor, vencimento, contrato_id, financeira_id, obs} = req.body
 
       const boleto = await prismaClient.boleto.create({
         data: {
@@ -36,7 +36,8 @@ export class CreateBoletoController {
             valor,
             vencimento,
             contrato_id,
-            financeira_id
+            financeira_id,
+            obs
         }
       })
       

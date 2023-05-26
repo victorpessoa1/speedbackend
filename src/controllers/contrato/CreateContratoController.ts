@@ -8,7 +8,7 @@ export class CreateContratoController {
     try {
       const { planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, assinatura_cliente, 
           assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b, financeira_id, 
-          tipoConsorcio_descricao, long, lat} = req.body
+          tipoConsorcio_descricao,obs, long, lat} = req.body
 
       const contrato = await prismaClient.contrato.create({
         data: {
@@ -24,6 +24,7 @@ export class CreateContratoController {
             assinatura_testemunha_b,
             financeira_id,
             tipoConsorcio_descricao,
+            obs,
             long,
             lat
             
