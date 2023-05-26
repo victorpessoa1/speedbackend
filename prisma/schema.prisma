@@ -267,6 +267,7 @@ model Contrato {
   valorBem                Float
   planoNovo               Boolean
   isAtivo                 Boolean
+  obs                     String?
   long                    String?
   lat                     String?
 
