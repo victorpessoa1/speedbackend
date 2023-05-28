@@ -258,6 +258,10 @@ model Contrato {
   tipoConsorcio_descricao String
   financeira              Financeira    @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
   financeira_id           Int
+  banco                   String?
+  conta                   String?
+  tipoConta               String        @default("corrente")
+  agencia                 String?
   assinatura_cliente      Int[]
   assinatura_colaborador  Int[]
   assinatura_testemunha_a Int[]
@@ -268,6 +272,7 @@ model Contrato {
   planoNovo               Boolean
   isAtivo                 Boolean
   pParcela                String?       @default("0")
+  nParcelas               Int           @default(1)
   obs                     String?
   long                    String?
   lat                     String?
@@ -296,7 +301,7 @@ model Financeira {
 
 model Grupo {
   uuid          String     @id @default(uuid())
-  financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id])
+  financeira    Financeira @relation(fields: [financeira_id], references: [financeira_id], onDelete: Cascade, onUpdate: Cascade)
   financeira_id Int
   grupo         String
   Cota          Cota[]
@@ -306,9 +311,10 @@ model Grupo {
 }
 
 model Cota {
-  uuid     String @id @default(uuid())
-  grupo    Grupo  @relation(fields: [grupo_id], references: [uuid])
-  grupo_id String
+  uuid       String @id @default(uuid())
+  grupo      Grupo  @relation(fields: [grupo_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  grupo_uuid String
+  cota       String
 
   created_at DateTime? @default(now())
   updated_at DateTime? @updatedAt
