@@ -48,6 +48,14 @@ import { CreateHistoricoTarefaController } from './controllers/historicotarefas/
 import { DeleteHistoricoTarefaController } from './controllers/historicotarefas/DeleteHistoricoTarefaController';
 import { ReadHistoricoTarefaController } from './controllers/historicotarefas/ReadHistoricoTarefaController';
 import { UpdateHistoricoTarefaController } from './controllers/historicotarefas/UpdateHistoricoTarefaController';
+import { CreateGrupoController } from './controllers/grupo/CreateGrupoController';
+import { DeleteGrupoController } from './controllers/grupo/DeleteGrupoController';
+import { ReadGrupoController } from './controllers/grupo/ReadGrupoController';
+import { UpdateGrupoController } from './controllers/grupo/UpdateGrupoController';
+import { CreateCotaController } from './controllers/cota/CreateCotaController';
+import { DeleteCotaController } from './controllers/cota/DeleteCotaController';
+import { ReadCotaController } from './controllers/cota/ReadCotaController';
+import { UpdateCotaController } from './controllers/cota/UpdateCotaController';
 
 const router = Router()
 
@@ -219,6 +227,28 @@ router.get("/financeiras", readFinanceira.exibirFinanceiras)
 router.get("/financeira/id", readFinanceira.exibirFinanceira)
 router.put("/atualizarfinanceira/:financeira_id", updateFinanceira.update)
 router.delete("/deletarfinanceira/:financeira_id", deleteFinanceira.delete)
+
+const createGrupo = new CreateGrupoController
+const readGrupo = new ReadGrupoController
+const updateGrupo = new UpdateGrupoController
+const deleteGrupo = new DeleteGrupoController
+
+router.post("/cadastrargrupo", createGrupo.handle)
+router.get("/grupos", readGrupo.exibirGrupos)
+router.get("/grupo/id", readGrupo.exibirGrupo)
+router.put("/atualizargrupo/:uuid", updateGrupo.update)
+router.delete("/deletargrupo/:uuid", deleteGrupo.delete)
+
+const createCota = new CreateCotaController
+const readCota = new ReadCotaController
+const updateCota = new UpdateCotaController
+const deleteCota = new DeleteCotaController
+
+router.post("/cadastrarcota", createCota.handle)
+router.get("/cotas", readCota.exibirCotas)
+router.get("/cota/id", readCota.exibirCota)
+router.put("/atualizarcota/:uuid", updateCota.update)
+router.delete("/deletarcota/:uuid", deleteCota.delete)
 
 
 const createTipoConsorcio = new CreateTipoConsorcioController
