@@ -32,8 +32,7 @@ export class CreateContratoController {
             nParcelas,
             obs,
             long,
-            lat
-            
+            lat  
         }
       })
       
