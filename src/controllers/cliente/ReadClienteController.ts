@@ -57,6 +57,116 @@ export class ReadClienteController {
   
   }
 
+  async clientesAtivos(req: Request, res: Response) {
+
+    try {
+      const clientes = await prismaClient.cliente.findMany({
+        where:{
+          colaborador_uuid: req.uuid,
+          isAtivo: true
+        },
+        select:{
+          uuid: true,
+          nomeCompleto: true,
+          cpf: true,
+          isAtivo: true,
+          DPessoaisCliente:{
+            select:{
+              rg: true,
+              fotoDocumento: true,
+              profissao: true,
+              rendimento: true,
+              dataEmissao: true,
+              oExpedidor: true,
+              eCivel: true,
+              sexo: true,
+              nascimento: true,
+              celular: true,
+              whatsapp: true,
+              email: true,
+            }
+          },
+          EnderecoCliente:{
+            select:{
+              cep: true,
+              pais: true,
+              estado: true,
+              cidade: true,
+              bairro: true,
+              rua: true,
+              endereco: true,
+            }
+          },
+          colaborador: true,
+        }
+      })
+  
+      return res.status(200).json(clientes)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao listar todos os clientes'
+    })
+    }
+  
+  }
+
+  async clientesInativos(req: Request, res: Response) {
+
+    try {
+      const clientes = await prismaClient.cliente.findMany({
+        where:{
+          colaborador_uuid: req.uuid,
+          isAtivo: false
+        },
+        select:{
+          uuid: true,
+          nomeCompleto: true,
+          cpf: true,
+          isAtivo: true,
+          DPessoaisCliente:{
+            select:{
+              rg: true,
+              fotoDocumento: true,
+              profissao: true,
+              rendimento: true,
+              dataEmissao: true,
+              oExpedidor: true,
+              eCivel: true,
+              sexo: true,
+              nascimento: true,
+              celular: true,
+              whatsapp: true,
+              email: true,
+            }
+          },
+          EnderecoCliente:{
+            select:{
+              cep: true,
+              pais: true,
+              estado: true,
+              cidade: true,
+              bairro: true,
+              rua: true,
+              endereco: true,
+            }
+          },
+          colaborador: true,
+        }
+      })
+  
+      return res.status(200).json(clientes)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao listar todos os clientes'
+    })
+    }
+  
+  }
+
   async clientestotal(req: Request, res: Response) {// rota do administrativo
 
     try {
