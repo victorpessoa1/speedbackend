@@ -56,6 +56,7 @@ import { CreateCotaController } from './controllers/cota/CreateCotaController';
 import { DeleteCotaController } from './controllers/cota/DeleteCotaController';
 import { ReadCotaController } from './controllers/cota/ReadCotaController';
 import { UpdateCotaController } from './controllers/cota/UpdateCotaController';
+import { Logout } from './controllers/auth/Logout';
 
 const router = Router()
 
@@ -101,7 +102,9 @@ try{
 const createColaborador = new CreateColaboradorController
 
 const autenticacaoColaborador = new AuthColaboradorController
-router.post("/login", autenticacaoColaborador.autenticacao)
+const logout = new Logout
+router.post("/login", autenticacaoColaborador.login)
+router.post("/loginserver", autenticacaoColaborador.loginServer)
 router.post("/cadastrarcolaborador", createColaborador.handle)
 
 router.use(AuthMiddleware)
@@ -117,7 +120,7 @@ router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.put("/atualizalogin/:uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
-router.post("/logout", autenticacaoColaborador.logout)
+router.post("/logout", logout.logout)
 
 const createEquipe = new CreateEquipeController
 const readEquipe = new ReadEquipeController
