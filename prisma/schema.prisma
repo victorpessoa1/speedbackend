@@ -126,10 +126,9 @@ model Cliente {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  EnderecoCliente       EnderecoCliente[]
-  DPessoaisCliente      DPessoaisCliente[]
-  DadosBancariosCliente DadosBancariosCliente[]
-  Contrato              Contrato[]
+  EnderecoCliente  EnderecoCliente[]
+  DPessoaisCliente DPessoaisCliente[]
+  Contrato         Contrato[]
 }
 
 model EnderecoCliente {
@@ -164,17 +163,6 @@ model DPessoaisCliente {
   whatsapp       String
   email          String
   id_botconversa String?
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-}
-
-model DadosBancariosCliente {
-  cc           String
-  cp           String
-  agencia      String
-  cliente      Cliente @relation(fields: [cliente_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  cliente_uuid String  @id
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
