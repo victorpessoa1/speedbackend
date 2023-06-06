@@ -57,6 +57,10 @@ import { DeleteCotaController } from './controllers/cota/DeleteCotaController';
 import { ReadCotaController } from './controllers/cota/ReadCotaController';
 import { UpdateCotaController } from './controllers/cota/UpdateCotaController';
 import { Logout } from './controllers/auth/Logout';
+import { CreateFuncaoColaboradorController } from './controllers/funcaocolaborador/CreateFuncaoColaboradorController';
+import { DeleteFuncaoColaboradorController } from './controllers/funcaocolaborador/DeleteFuncaoColaboradorController';
+import { ReadFuncaoColaboradorController } from './controllers/funcaocolaborador/ReadFuncaoColaboradorController';
+import { UpdateFuncaoColaboradorController } from './controllers/funcaocolaborador/UpdateFuncaoColaboradorController';
 
 const router = Router()
 
@@ -122,6 +126,17 @@ router.put("/atualizalogin/:uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
 router.post("/logout", logout.logout)
 
+const createFuncao = new CreateFuncaoColaboradorController
+const readFuncao = new ReadFuncaoColaboradorController
+const UpdateFuncao = new UpdateFuncaoColaboradorController
+const deleteFuncao = new DeleteFuncaoColaboradorController
+
+router.post('/cadastrarfuncaoColaborador', createFuncao.handle)
+router.get('/funcoescolaborador', readFuncao.exibirFuncoesColaborador)
+router.get('/funcaocolaborador', readFuncao.exibirFuncaoColaborador)
+router.put('/atualizarfuncaoColaborador/:uuid', UpdateFuncao.update)
+router.delete('/deletarfuncaocolaborador/:uuid', deleteFuncao.delete)
+
 const createEquipe = new CreateEquipeController
 const readEquipe = new ReadEquipeController
 const UpdateEquipe = new UpdateEquipeController
@@ -130,7 +145,7 @@ const deleteEquipe = new DeleteEquipeController
 router.post('/cadastrarequipe', createEquipe.handle)
 router.get('/equipes', readEquipe.equipes)
 router.put('/atualizarequipe/:uuid', UpdateEquipe.update)
-router.delete('/deletarcolaborador/:uuid', deleteEquipe.delete)
+router.delete('/deletarequipe/:uuid', deleteEquipe.delete)
 
 const createCliente = new CreateClienteController   
 const readCliente = new ReadClienteController
