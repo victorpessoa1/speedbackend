@@ -29,7 +29,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -57,7 +63,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -87,7 +99,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -120,7 +138,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -178,7 +202,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -206,7 +236,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
@@ -234,7 +270,13 @@ export class ReadContratoController {
                     Financeira: true,
                 }
             },
-            cliente: true,
+            cliente: {
+                include: {
+                    DPessoaisCliente: true,
+                    EnderecoCliente: true
+
+                }
+            },
             colaborador:{
                 include: {
                     Equipe: true,
