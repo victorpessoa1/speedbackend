@@ -235,8 +235,8 @@ router.get("/contratosinativos", readContrato.exibirContratosInativos)
 router.get("/contratosporcolaborador/:uuid", readContrato.exibirContratosPorColaborador)
 router.get("/contratosporcliente/:cliente_uuid", readContrato.exibirContratosPorCliente)
 router.get("/contratos/tempo", readContrato.exibirContratosPorTempo)
-router.put("/atualizarcontrato/:nContrato", updateContrato.update)
-router.delete("/deletarcontrato/:nContrato", deleteContrato.delete)
+router.put("/atualizarcontrato/:id", updateContrato.update)
+router.delete("/deletarcontrato/:id", deleteContrato.delete)
 
 const createFinanceira = new CreateFinanceiraController
 const readFinanceira = new ReadFinanceiraController
