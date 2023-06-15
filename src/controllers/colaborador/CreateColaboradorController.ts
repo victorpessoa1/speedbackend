@@ -5,11 +5,12 @@ import { prismaClient } from '../../database/prismaClient';
 export class CreateColaboradorController {
   async handle(req: Request, res: Response) {
     
-    try {
+   
+    try{
 
       const {nomeCompleto, cpf, isAtivo, email, senha, acesso, cep, pais, estado, cidade, bairro,  rua, endereco, dataEmissao,
-        localemissao, eCivel, nascimento, oExpedidor, rg, sexo, id_botconversa} = req.body
-      const hash_senha = await hash(senha, 12)
+        localemissao, eCivel, nascimento, oExpedidor, rg, sexo, id_botconversa } = req.body
+        const hash_senha = await hash(senha, 12)
       
       const colaborador = await prismaClient.colaborador.create({
       data: {
@@ -18,7 +19,7 @@ export class CreateColaboradorController {
         isAtivo,
         login: {
           create: {
-            email,
+            email: email.toLowerCase(),
             senha: hash_senha,
             acesso,
             autorizado: false
@@ -50,11 +51,12 @@ export class CreateColaboradorController {
       }
     })
     return res.status(201).json(colaborador)
-    } catch (error) {
-      return res.status(400).json({
-        error: error,
-        message: 'Erro ao criar um colaborador'
-      })
-    }
   }
+  catch (error) {
+    return res.status(400).json({
+      error: error,
+      message: 'erro ao criar colaborador'
+    })
+  }
+}
 }

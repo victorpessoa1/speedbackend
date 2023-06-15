@@ -15,7 +15,7 @@ export class UpdateLoginController {
             {
               where: { colaborador_uuid },
               data: { 
-                email,
+                email: email.toLowerCase(),
                 senha: hash_senha
               }
             }
