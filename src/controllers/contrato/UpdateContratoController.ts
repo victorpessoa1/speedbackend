@@ -6,7 +6,7 @@ export class UpdateContratoController {
   async update(req: Request, res: Response) {
     const { isAtivo, planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, 
             assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b,
-            financeira_id, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, banco, conta, tipoConta, agencia} = req.body
+            financeira_id, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, banco, conta, tipoConta, agencia, grupo, cota} = req.body
 
     const {id} = req.params
     
@@ -36,7 +36,9 @@ export class UpdateContratoController {
                 pParcela,
                 nParcelas,
                 long,
-                lat
+                lat,
+                grupo,
+                cota
               }
             }
           )

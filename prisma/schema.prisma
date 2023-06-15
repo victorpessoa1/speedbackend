@@ -247,11 +247,13 @@ model Contrato {
   valorBem                Float
   planoNovo               Boolean
   isAtivo                 Boolean
-  pParcela                String?       @default("0")
+  pParcela                String?       @default("1")
   nParcelas               Int           @default(1)
   obs                     String?
   long                    String?
   lat                     String?
+  grupo                   String?
+  cota                    String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
