@@ -43,10 +43,10 @@ export class ReadColaboradorController {
               id_botconversa: true
             }
           },
-          colaborador_has_funcao: {
+          Funcao: {
             select: {
-              funcao: true,
-              funcao_uuid: true,
+              descricao: true,
+              uuid: true,
             }
           },
           Equipe: {
@@ -112,10 +112,10 @@ async colaboradoresAtivos(req: Request, res: Response) {
             id_botconversa: true
           }
         },
-        colaborador_has_funcao: {
+        Funcao: {
           select: {
-            funcao: true,
-            funcao_uuid: true,
+            descricao: true,
+            uuid: true,
           }
         },
         Equipe: {
@@ -181,10 +181,10 @@ async colaboradoresInativos(req: Request, res: Response) {
             id_botconversa: true
           }
         },
-        colaborador_has_funcao: {
+        Funcao: {
           select: {
-            funcao: true,
-            funcao_uuid: true,
+            descricao: true,
+            uuid: true,
           }
         },
         Equipe: {
@@ -250,10 +250,10 @@ async colaboradoresInativos(req: Request, res: Response) {
               id_botconversa: true
             }
           },
-          colaborador_has_funcao: {
+          Funcao: {
             select: {
-              funcao: true,
-              funcao_uuid: true,
+              descricao: true,
+              uuid: true,
             }
           },
           Equipe: {

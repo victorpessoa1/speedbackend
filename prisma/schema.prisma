@@ -16,20 +16,21 @@ model Colaborador {
   nomeCompleto String
   cpf          String  @unique
   isAtivo      Boolean
+  Funcao       Funcao? @relation(fields: [funcaoUuid], references: [uuid])
+  funcaoUuid   String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Cliente                Cliente[]
-  EnderecoColaborador    EnderecoColaborador[]
-  DPessoaisColaborador   DPessoaisColaborador[]
-  colaborador_has_funcao colaborador_has_funcao[]
-  Equipe                 Equipe[]
-  Contrato               Contrato[]
-  login                  login[]
-  agendaCliente          agendaCliente[]
-  tarefas                tarefas[]
-  historicoTarefas       historicoTarefas[]
+  Cliente              Cliente[]
+  EnderecoColaborador  EnderecoColaborador[]
+  DPessoaisColaborador DPessoaisColaborador[]
+  Equipe               Equipe[]
+  Contrato             Contrato[]
+  login                login[]
+  agendaCliente        agendaCliente[]
+  tarefas              tarefas[]
+  historicoTarefas     historicoTarefas[]
 }
 
 model login {
@@ -98,21 +99,8 @@ model Funcao {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  descricao String
-
-  colaborador_has_funcao colaborador_has_funcao[]
-}
-
-model colaborador_has_funcao {
-  uuid String @id @default(uuid())
-
-  colaborador      Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  colaborador_uuid String
-  funcao           Funcao      @relation(fields: [funcao_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
-  funcao_uuid      String
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  descricao   String
+  Colaborador Colaborador[]
 }
 
 model Cliente {

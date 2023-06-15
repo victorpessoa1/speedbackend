@@ -4,12 +4,11 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateColaboradorController {
 
   async update(req: Request, res: Response) {
-    const {nomeCompleto, cpf, isAtivo, nascimento, sexo, rg, oExpedidor, dataEmissao, localemissao, eCivel, id_botconversa,
-      cep, pais, estado, cidade, bairro, rua, endereco, acesso, autorizado } = req.body
+    const {nomeCompleto, cpf, isAtivo, nascimento, sexo, rg, oExpedidor, dataEmissao, eCivel, id_botconversa,
+      cep, pais, estado, cidade, bairro, rua, endereco, acesso, autorizado, funcaoUuid } = req.body
     const {uuid} = req.params
 
     try {
-
       const colaboradorAtualizado = await prismaClient.colaborador.update(
       {
         where: { uuid },
@@ -17,6 +16,7 @@ export class UpdateColaboradorController {
           nomeCompleto,
           cpf,
           isAtivo,
+          funcaoUuid,
           DPessoaisColaborador: {
             update: {
               where: { colaborador_uuid: uuid },
@@ -57,7 +57,6 @@ export class UpdateColaboradorController {
         }
       }
       )
-
       return res.status(200).json(colaboradorAtualizado)
 
     } catch (error) {
