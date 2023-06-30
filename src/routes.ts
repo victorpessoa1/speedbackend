@@ -122,7 +122,7 @@ router.get("/colaboradoresativos", readColaborador.colaboradoresAtivos)
 router.get("/colaboradoresinativos", readColaborador.colaboradoresInativos)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
-router.put("/atualizalogin/:uuid", atualizalogin.update)
+router.put("/atualizalogin/:colaborador_uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
 router.post("/logout", logout.logout)
 

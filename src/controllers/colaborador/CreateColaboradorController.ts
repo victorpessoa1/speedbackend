@@ -17,7 +17,6 @@ export class CreateColaboradorController {
         nomeCompleto,
         cpf,
         isAtivo,
-        funcaoUuid: "colaborador",
         login: {
           create: {
             email: email.toLowerCase(),

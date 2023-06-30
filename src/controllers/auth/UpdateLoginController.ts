@@ -15,7 +15,7 @@ export class UpdateLoginController {
             {
               where: { colaborador_uuid },
               data: { 
-                email: email.toLowerCase(),
+                email,
                 senha: hash_senha
               }
             }
@@ -25,7 +25,7 @@ export class UpdateLoginController {
     } catch (error) {
       return res.status(500).json({ 
         error: error, 
-        message: "Erro ao atualizar contrato" 
+        message: "Erro ao atualizar login" 
       })
     }
   }
