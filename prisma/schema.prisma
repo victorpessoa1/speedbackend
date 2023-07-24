@@ -31,6 +31,8 @@ model Colaborador {
   agendaCliente        agendaCliente[]
   tarefas              tarefas[]
   historicoTarefas     historicoTarefas[]
+  CotaContrato         CotaContrato[]
+  CotaBoleto           CotaBoleto[]
 }
 
 model login {
@@ -260,6 +262,7 @@ model Contrato {
 
   Boleto       Boleto[]
   Contemplacao Contemplacao[]
+  CotaContrato CotaContrato[]
 }
 
 model Financeira {
@@ -313,8 +316,31 @@ model Boleto {
   dataPagamento String?
   obs           String?
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  CotaBoleto CotaBoleto[]
+}
+
+model CotaContrato {
+  uuid                String      @id @default(uuid())
+  Contrato            Contrato    @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contrato_id         Int
+  colaborador         Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  colaborador_uuid    String
+  porcentagemComissao Float
+  dataPagamento       DateTime
+  ValorContrato       Float
+}
+
+model CotaBoleto {
+  uuid                String      @id @default(uuid())
+  colaborador         Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  colaborador_uuid    String
+  boleto              Boleto      @relation(fields: [boleto_id], references: [boleto_id], onDelete: Cascade, onUpdate: Cascade)
+  boleto_id           Int
+  porcentagemComissao Float
+  dataPagamento       DateTime
+  ValorBoleto         Float
 }
 
 model Contemplacao {
