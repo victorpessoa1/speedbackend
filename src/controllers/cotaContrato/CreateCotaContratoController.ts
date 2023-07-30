@@ -10,7 +10,7 @@ export class CreateCotaContratoController {
 
       const { dataPagamento, porcentagemComissao, ValorContrato, colaborador_uuid, contrato_id} = req.body
 
-      const cotaContrato = await prismaClient.cotaContrato.create({
+      const cotaContrato = await prismaClient.cotaContrato.createMany({
         data: {
           dataPagamento,
           porcentagemComissao,

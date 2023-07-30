@@ -124,13 +124,15 @@ export class ReadContratoController {
 
   async exibirContratosPorTempo(req: Request, res: Response) {
     
-    const {tempo} = req.body
+    const {tempoInicial, tempoFinal} = req.body
 
     const contratos = await prismaClient.contrato.findMany({
         where: {
-            created_at: {
-                gt: tempo
-            }
+            dataCriado: {
+                gte: tempoInicial,
+                lt: tempoFinal
+            },
+            isAtivo: true
         },
         include: {
             Boleto: {

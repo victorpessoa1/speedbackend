@@ -6,8 +6,16 @@ export class CreateBoletoController {
   async criarvariosboletos(req: Request, res: Response) {
 
     try {
-      const { listaBoletos } = req.body
-        
+      const { listaBoletos, contrato_id, dataCriado } = req.body
+      
+        await prismaClient.contrato.update({
+        where: { id: Number(contrato_id)},
+        data: {
+          dataCriado
+        } 
+      })
+
+
       const boletos = await prismaClient.boleto.createMany({
         data: listaBoletos
         

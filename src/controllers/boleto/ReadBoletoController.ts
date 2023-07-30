@@ -161,4 +161,53 @@ export class ReadBoletoController {
     }
   
   }
+
+
+  async exibirBoletosfechadosPorDataEColabordor(req: Request, res: Response) {
+
+    try {
+
+      const {dataInicio, dataFim, colaborador_uuid} = req.body
+      
+      const boletos = await prismaClient.boleto.findMany({
+        where: {
+          isPago: true,
+          dataPagamento:{
+            gte: dataInicio,
+            lt: dataFim
+          },
+          Contrato:{
+            colaborador_uuid: colaborador_uuid
+          }
+          
+        }, 
+        include:{
+          Contrato: {
+            include: {
+              cliente: true,
+              colaborador: true
+            }
+          },
+          Financeira: {
+            include: {
+              Grupo: {
+                include: {
+                  Cota: true
+                }
+              }
+            }
+          },
+        }
+      })
+  
+      return res.status(200).json(boletos)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao listar todos os boletos'
+    })
+    }
+  
+  }
 }

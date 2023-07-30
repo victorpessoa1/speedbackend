@@ -6,7 +6,12 @@ export class ReadHistoricoTarefaController {
   async exibirHistoricoTarefas(req: Request, res: Response) {
 
     try {
-      const clientes = await prismaClient.historicoTarefas.findMany()
+      const clientes = await prismaClient.historicoTarefas.findMany({
+        include:{
+          tarefas: true,
+          colaborador: true
+        }
+      })
   
       return res.status(200).json(clientes)
 
