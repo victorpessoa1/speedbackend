@@ -2,9 +2,9 @@ generator client {
   provider = "prisma-client-js"
 }
 
-// generator erd {
-//   provider = "prisma-erd-generator"
-// }
+generator erd {
+  provider = "prisma-erd-generator"
+}
 
 datasource db {
   provider = "postgresql"
@@ -244,7 +244,7 @@ model Contrato {
   assinatura_colaborador  Int[]
   assinatura_testemunha_a Int[]
   assinatura_testemunha_b Int[]
-  dataCriado              DateTime
+  dataCriado              DateTime      @default(now())
   diaVencimento           String
   valorBem                Float
   planoNovo               Boolean
