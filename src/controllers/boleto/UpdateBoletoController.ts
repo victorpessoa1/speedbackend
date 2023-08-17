@@ -10,6 +10,7 @@ export class UpdateBoletoController {
     try {
 
       if(isPago) {
+        const dp = new Date(dataPagamento)
         const contrato = await prismaClient.contrato.findFirst({
           where: {
             id: contrato_id
@@ -25,12 +26,11 @@ export class UpdateBoletoController {
         const cotaBoleto = await prismaClient.cotaBoleto.create(
           {
             data: {
-              dataPagamento: String(Date.now()),
+              dataPagamento: dp,
               porcentagemComissao: 0.01,
               ValorBoleto: valor * 0.01,
               boleto_id: Number(boleto_id),
               colaborador_uuid: contrato.colaborador_uuid,
-
             }
           }
         )
@@ -59,6 +59,7 @@ export class UpdateBoletoController {
           return res.status(200).json(boletoAtualizado)
 
     } catch (error) {
+      console.log(error);
       return res.status(500).json({ 
         error: error, 
         message: "Erro ao atualizar boleto" 
