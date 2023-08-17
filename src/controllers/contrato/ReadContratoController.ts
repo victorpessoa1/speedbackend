@@ -135,7 +135,7 @@ try {
         where: {
             dataCriado: {
                 gte: ti,
-                lt: tf,
+                lte: tf,
             },
             isAtivo: true
         },
