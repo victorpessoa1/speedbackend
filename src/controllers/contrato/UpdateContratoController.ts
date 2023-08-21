@@ -4,11 +4,35 @@ import { prismaClient } from '../../database/prismaClient';
 export class UpdateContratoController {
 
   async update(req: Request, res: Response) {
+    
+    const {id} = req.params
+    if (!id) {
+      return res.status(404).json({message:"id inexistente"})
+    }
+    const contratoantigo = await prismaClient.contrato.findUnique({
+      where: {id: Number(id)}
+    })
+
+    if(!contratoantigo)
+    {
+      return res.status(404).json({
+        message: "Contrato inexistente"
+      })
+    }
+
+    const {movimentacao} = req.body
+
+    try{
+      const historicocontrato = await prismaClient.historicoContrato.upsert({
+        where: {id: Number(id)}
+      })
+    }
+
+
     const { isAtivo, planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, 
             assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b,
             financeira_id, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, banco, conta, tipoConta, agencia, grupo, cota} = req.body
 
-    const {id} = req.params
     
 
     try {

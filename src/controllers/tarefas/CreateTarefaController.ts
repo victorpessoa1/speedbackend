@@ -38,7 +38,7 @@ export class CreateTarefaController {
             nomecliente,
             telefonecliente,
             horapraligar,
-            colaborador_uuid: colaborador_uuid,
+            colaborador_uuid,
             obs,
           },
   
