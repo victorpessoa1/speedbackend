@@ -24,6 +24,7 @@ export class ReadContratoController {
     const contratos = await prismaClient.contrato.findMany({
         
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -58,6 +59,7 @@ export class ReadContratoController {
     const contratos = await prismaClient.contrato.findMany({
         where: {colaborador_uuid : uuid},
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -94,6 +96,7 @@ export class ReadContratoController {
       where: {cliente_uuid},
         
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -125,16 +128,19 @@ export class ReadContratoController {
   async exibirContratosPorTempo(req: Request, res: Response) {
     
     const {tempoInicial, tempoFinal} = req.body
-
+try {
+    const ti =new Date(tempoInicial);
+    const tf =new Date(tempoFinal);
     const contratos = await prismaClient.contrato.findMany({
         where: {
             dataCriado: {
-                gte: tempoInicial,
-                lt: tempoFinal
+                gte: ti,
+                lte: tf,
             },
             isAtivo: true
         },
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -155,8 +161,12 @@ export class ReadContratoController {
             Contemplacao: true,            
         }
     })
-
     return res.status(200).json(contratos)
+} catch (error) {
+    console.log(error)
+    return res.status(500).json(error)
+}
+  
   }
 
   async exibirContratosAtivos(req: Request, res: Response) {
@@ -165,6 +175,7 @@ export class ReadContratoController {
       where: {isAtivo: true},
         
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -199,6 +210,7 @@ export class ReadContratoController {
       where: {isAtivo: false},
         
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
@@ -233,6 +245,7 @@ export class ReadContratoController {
       where: {isAtivo: true},
         
         include: {
+            financeira:true,
             Boleto: {
                 include: {
                     Financeira: true,
