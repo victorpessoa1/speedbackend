@@ -22,11 +22,11 @@ export class UpdateContratoController {
 
     const {movimentacao} = req.body
 
-    try{
-      const historicocontrato = await prismaClient.historicoContrato.upsert({
-        where: {id: Number(id)}
-      })
-    }
+    // try{
+    //   const historicocontrato = await prismaClient.historicoContrato.upsert({
+    //     // where: {id: Number(id)}
+    //   })
+    // }
 
 
     const { isAtivo, planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, 
