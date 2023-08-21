@@ -8,7 +8,7 @@ export class CreateHistoricoContratoController {
     const {colaborador_uuid} = req.params
     try {
       const {
-        contrato_id, movimentacao, planoNovo, valorBem, diaVencimento, cliente_uuid, assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b, financeira_id, banco, conta, tipoConta, agencia, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, grupo, cota   } = req.body
+        contrato_id, movimentacao, planoNovo, valorBem, diaVencimento, cliente_uuid, assinatura_cliente,statusContrato_descricao, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b, financeira_id, banco, conta, tipoConta, agencia, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, grupo, cota   } = req.body
 
       const historicoContrato = await prismaClient.historicoContrato.create({
         data: {
@@ -28,6 +28,7 @@ export class CreateHistoricoContratoController {
           tipoConta,
           agencia,
           tipoConsorcio_descricao,
+          statusContrato_descricao,
           pParcela,
           nParcelas,
           obs,

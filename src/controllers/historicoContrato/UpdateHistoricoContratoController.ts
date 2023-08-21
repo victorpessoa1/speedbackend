@@ -5,7 +5,7 @@ export class UpdateHistoricoContratoController {
 
   async update(req: Request, res: Response) {
 
-    const { isAtivo, contrato_id, movimentacao, colaborador_uuid, valorBem, diaVencimento, cliente_uuid, assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b, financeira_id, banco, conta, tipoConta, agencia, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, grupo, cota   } = req.body
+    const { isAtivo, contrato_id, movimentacao, colaborador_uuid,statusContrato_descricao, valorBem, diaVencimento, cliente_uuid, assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b, financeira_id, banco, conta, tipoConta, agencia, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, grupo, cota   } = req.body
     const {id} = req.params
 
     try {
@@ -29,6 +29,7 @@ export class UpdateHistoricoContratoController {
                 tipoConta,
                 agencia,
                 tipoConsorcio_descricao,
+                statusContrato_descricao,
                 pParcela,
                 nParcelas,
                 obs,

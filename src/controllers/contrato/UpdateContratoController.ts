@@ -29,7 +29,7 @@ export class UpdateContratoController {
     // }
 
 
-    const { isAtivo, planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, 
+    const { isAtivo, planoNovo, valorBem, diaVencimento, cliente_uuid, colaborador_uuid, statusContrato_descricao,
             assinatura_cliente, assinatura_colaborador, assinatura_testemunha_a, assinatura_testemunha_b,
             financeira_id, tipoConsorcio_descricao, pParcela, nParcelas, obs, long, lat, banco, conta, tipoConta, agencia, grupo, cota} = req.body
 
@@ -56,6 +56,7 @@ export class UpdateContratoController {
                 tipoConta,
                 agencia,
                 tipoConsorcio_descricao,
+                statusContrato_descricao,
                 obs,
                 pParcela,
                 nParcelas,
