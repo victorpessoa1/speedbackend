@@ -13,12 +13,12 @@ export class CreateContratoController {
       const contrato = await prismaClient.contrato.create({
         data: {
             isAtivo: true,
-            statusContrato_descricao,
             planoNovo,
             valorBem,
             diaVencimento,
             cliente_uuid,
             colaborador_uuid,
+            statusContrato_descricao,
             assinatura_cliente,
             assinatura_colaborador,
             assinatura_testemunha_a,
@@ -43,6 +43,7 @@ export class CreateContratoController {
       return res.status(201).json({contrato, message: "contrato criado com sucesso"})
       
     } catch (error) {
+      console.log(error)
      return res.status(500).json(
       { 
       error: error,
