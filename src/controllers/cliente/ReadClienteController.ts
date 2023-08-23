@@ -2,7 +2,20 @@ import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
 export class ReadClienteController {
-  
+
+  async documentoCliente
+  (req: Request, res: Response){
+    var path = require ('path');
+    const fotoDocumento = path.join('./uploads/'+req.body.nomeCompleto.replaceAll(' ', ''), req.body.nomeCompleto.replaceAll(' ', '')+'.pdf')
+   res.download(fotoDocumento,function(err){
+    if(err){
+      console.log(err)
+      
+    }else
+    console.log('sucess')
+   })
+  }
+
   async clientes(req: Request, res: Response) {
 
     try {

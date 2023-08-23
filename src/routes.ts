@@ -154,6 +154,7 @@ const deleteCliente = new DeleteClienteController
 
 router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
+router.get("/clientesDocumento", readCliente.documentoCliente)
 router.get("/clientesativos", readCliente.clientesAtivos)
 router.get("/clientesinativos", readCliente.clientesInativos)
 router.get("/clientestotal", readCliente.clientestotal)
