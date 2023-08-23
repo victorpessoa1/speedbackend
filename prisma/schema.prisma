@@ -33,6 +33,7 @@ model Colaborador {
   historicoTarefas     historicoTarefas[]
   CotaContrato         CotaContrato[]
   CotaBoleto           CotaBoleto[]
+  HistoricoContrato    HistoricoContrato[]
 }
 
 model login {
@@ -116,9 +117,10 @@ model Cliente {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  EnderecoCliente  EnderecoCliente[]
-  DPessoaisCliente DPessoaisCliente[]
-  Contrato         Contrato[]
+  EnderecoCliente   EnderecoCliente[]
+  DPessoaisCliente  DPessoaisCliente[]
+  Contrato          Contrato[]
+  HistoricoContrato HistoricoContrato[]
 }
 
 model EnderecoCliente {
@@ -223,46 +225,109 @@ model TipoConsorcio {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Contrato Contrato[]
+  Contrato          Contrato[]
+  HistoricoContrato HistoricoContrato[]
 }
 
 model Contrato {
-  id                      Int           @id @default(autoincrement())
-  cliente                 Cliente       @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
-  cliente_uuid            String
-  colaborador             Colaborador   @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
-  colaborador_uuid        String
-  tipoConsorcio           TipoConsorcio @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
-  tipoConsorcio_descricao String
-  financeira              Financeira    @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
-  financeira_id           Int
-  banco                   String?
-  conta                   String?
-  tipoConta               String        @default("corrente")
-  agencia                 String?
-  assinatura_cliente      Int[]
-  assinatura_colaborador  Int[]
-  assinatura_testemunha_a Int[]
-  assinatura_testemunha_b Int[]
-  dataCriado              DateTime      @default(now())
-  diaVencimento           String
-  valorBem                Float
-  planoNovo               Boolean
-  isAtivo                 Boolean
-  pParcela                String?       @default("1")
-  nParcelas               Int           @default(1)
-  obs                     String?
-  long                    String?
-  lat                     String?
-  grupo                   String?
-  cota                    String?
+  id                       Int             @id @default(autoincrement())
+  cliente                  Cliente         @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  cliente_uuid             String
+  colaborador              Colaborador     @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  colaborador_uuid         String
+  tipoConsorcio            TipoConsorcio   @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
+  tipoConsorcio_descricao  String
+  StatusContrato           StatusContrato? @relation(fields: [statusContrato_descricao], references: [statusDescricao], onDelete: NoAction, onUpdate: NoAction)
+  statusContrato_descricao String?        
+  financeira               Financeira      @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
+  financeira_id            Int
+  banco                    String?
+  conta                    String?
+  tipoConta                String          @default("corrente")
+  agencia                  String?
+  assinatura_cliente       Int[]
+  assinatura_colaborador   Int[]
+  assinatura_testemunha_a  Int[]
+  assinatura_testemunha_b  Int[]
+  dataCriado               DateTime        @default(now())
+  diaVencimento            String
+  valorBem                 Float
+  planoNovo                Boolean
+  isAtivo                  Boolean
+  pParcela                 String?         @default("1")
+  nParcelas                Int             @default(1)
+  obs                      String?
+  long                     String?
+  lat                      String?
+  grupo                    String?
+  cota                     String?
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Boleto       Boleto[]
-  Contemplacao Contemplacao[]
-  CotaContrato CotaContrato[]
+  Boleto            Boleto[]
+  Contemplacao      Contemplacao[]
+  CotaContrato      CotaContrato[]
+  HistoricoContrato HistoricoContrato[]
+}
+
+model HistoricoContrato {
+  contrato                 Contrato        @relation(fields: [contrato_id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  contrato_id              Int
+  id                       Int             @id @default(autoincrement())
+  cliente                  Cliente         @relation(fields: [cliente_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  cliente_uuid             String
+  colaborador              Colaborador     @relation(fields: [colaborador_uuid], references: [uuid], onDelete: NoAction, onUpdate: Cascade)
+  colaborador_uuid         String
+  tipoConsorcio_descricao  String
+  StatusContrato           StatusContrato? @relation(fields: [statusContrato_descricao], references: [statusDescricao], onDelete: NoAction, onUpdate: NoAction)
+  statusContrato_descricao String?
+  financeira               Financeira      @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
+  financeira_id            Int
+  banco                    String?
+  conta                    String?
+  tipoConta                String          @default("corrente")
+  agencia                  String?
+  assinatura_cliente       Int[]
+  assinatura_colaborador   Int[]
+  assinatura_testemunha_a  Int[]
+  assinatura_testemunha_b  Int[]
+  dataCriado               DateTime        @default(now())
+  diaVencimento            String
+  valorBem                 Float
+  planoNovo                Boolean
+  isAtivo                  Boolean
+  pParcela                 String?         @default("1")
+  nParcelas                Int             @default(1)
+  obs                      String?
+  long                     String?
+  lat                      String?
+  grupo                    String?
+  cota                     String?
+
+  movimentacao   String // recusado / atualizado / timeout / mandado pelo front
+  atualizado_por String // colaborador / timeout
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  Boleto           Boleto[]
+  Contemplacao     Contemplacao[]
+  CotaContrato     CotaContrato[]
+  statusContratoId Int?
+  TipoConsorcio    TipoConsorcio? @relation(fields: [tipoConsorcioId], references: [id])
+  tipoConsorcioId  Int?
+}
+
+model StatusContrato {
+  id              Int    @id @default(autoincrement())
+  statusDescricao String @unique
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  Contrato          Contrato[]
+  HistoricoContrato HistoricoContrato[]
 }
 
 model Financeira {
@@ -275,9 +340,10 @@ model Financeira {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  Boleto   Boleto[]
-  Contrato Contrato[]
-  Grupo    Grupo[]
+  Boleto            Boleto[]
+  Contrato          Contrato[]
+  Grupo             Grupo[]
+  HistoricoContrato HistoricoContrato[]
 }
 
 model Grupo {
@@ -316,20 +382,24 @@ model Boleto {
   dataPagamento String?
   obs           String?
 
-  created_at DateTime     @default(now())
-  updated_at DateTime     @updatedAt
-  CotaBoleto CotaBoleto[]
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+  CotaBoleto          CotaBoleto[]
+  HistoricoContrato   HistoricoContrato? @relation(fields: [historicoContratoId], references: [id])
+  historicoContratoId Int?
 }
 
 model CotaContrato {
-  uuid                String      @id @default(uuid())
-  Contrato            Contrato    @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  uuid                String             @id @default(uuid())
+  Contrato            Contrato           @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   contrato_id         Int
-  colaborador         Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
+  colaborador         Colaborador        @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid    String
   porcentagemComissao Float
   dataPagamento       DateTime
   ValorContrato       Float
+  HistoricoContrato   HistoricoContrato? @relation(fields: [historicoContratoId], references: [id])
+  historicoContratoId Int?
 }
 
 model CotaBoleto {
@@ -352,6 +422,8 @@ model Contemplacao {
   Contrato    Contrato @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
   contrato_id Int
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  created_at          DateTime           @default(now())
+  updated_at          DateTime           @updatedAt
+  HistoricoContrato   HistoricoContrato? @relation(fields: [historicoContratoId], references: [id])
+  historicoContratoId Int?
 }
