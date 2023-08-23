@@ -2,7 +2,7 @@ import { Request, Response} from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
 export class ReadColaboradorController {
-  
+ 
   async colaboradores(req: Request, res: Response) {
   
     try {
