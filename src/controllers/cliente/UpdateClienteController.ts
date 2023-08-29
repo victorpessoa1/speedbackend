@@ -83,6 +83,7 @@ export class UpdateClienteController {
         if (err) return console.error(err, "erro ao deletar documento")
         console.log('documento deletado com sucesso')
       })
+      console.log(error)
       return res.status(500).json({ 
         error: error, 
         message: "Erro ao atualizar cliente" 

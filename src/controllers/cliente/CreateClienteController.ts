@@ -60,6 +60,7 @@ export class CreateClienteController {
       
     } 
     catch (error) {
+      console.log(error)
       fs.remove(fotoDocumento, (err: any) => {
         if (err) return console.error(err, "erro ao deletar documento")
         console.log('documento deletado com sucesso')
