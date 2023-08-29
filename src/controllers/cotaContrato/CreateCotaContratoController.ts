@@ -6,8 +6,8 @@ export class CreateCotaContratoController {
   async criarvarios(req: Request, res: Response) {
     try{
       const {listaComissoesContrato} = req.body
-     
       const cotaContrato = await prismaClient.cotaContrato.createMany({
+        
         data: listaComissoesContrato,
       })   
       return res.status(201).json({cotaContrato, message: "CotaContrato criado com sucesso"})

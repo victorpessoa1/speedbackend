@@ -63,6 +63,8 @@ import { ReadFuncaoColaboradorController } from './controllers/funcaocolaborador
 import { UpdateFuncaoColaboradorController } from './controllers/funcaocolaborador/UpdateFuncaoColaboradorController';
 import { CreateCotaContratoController } from './controllers/cotaContrato/CreateCotaContratoController';
 import { CreateCotaBoletoController } from './controllers/cotaBoleto/CreateCotaBoletoController';
+import { ReadCotaContratoController } from './controllers/cotaContrato/ReadCotaContratoController';
+import { ReadCotaBoletoController } from './controllers/cotaBoleto/ReadCotaBoletoController';
 
 const router = Router()
 
@@ -289,13 +291,15 @@ router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
 router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
 
 const createCotaContratoController = new CreateCotaContratoController
-
+const readCotaContrato = new ReadCotaContratoController
 router.post("/cadastrarvariascotascontrato",createCotaContratoController.criarvarios)
 router.post("/cadastrarcotacontrato",createCotaContratoController.handle)
+router.get("/exibirCotaContratoDoColaboradorPeriodo/:uuid",readCotaContrato.exibirCotaContratoDoColaboradorPeriodo)
 
 const createCotaBoletoController = new CreateCotaBoletoController
-
+const readCotaBoleto = new ReadCotaBoletoController
 router.post("/cadastrarvariascotasboleto",createCotaBoletoController.criarvarios)
 router.post("/cadastrarcotasboleto",createCotaBoletoController.handle)
+router.get("/exibirCotaBoletoPorTempo",readCotaBoleto.exibirCotaBoletoDoColaboradorPorTempo)
 
 export {router}

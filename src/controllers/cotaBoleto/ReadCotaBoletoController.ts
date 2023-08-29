@@ -41,6 +41,38 @@ export class ReadCotaBoletoController {
     }
   
   }
+  async exibirCotaBoletoDoColaboradorPorTempo(req: Request, res: Response) {
+
+    const {inicioPesquisa,fimPesquisa,colaborador_id} = req.body
+   
+    try {
+      const ip = new Date(inicioPesquisa)
+      const fp = new Date(fimPesquisa)
+      console.log(req.uuid)
+      const cotaBoletos = await prismaClient.cotaBoleto.findMany({
+        where:  {
+          dataPagamento:{
+            gte:ip,
+            lt: fp,
+          },
+          colaborador_uuid: 
+          {
+          contains:colaborador_id
+          }
+        }  
+      })
+
+  
+      return res.status(200).json(cotaBoletos)
+
+    } catch (error) {
+      return res.status(500).json({
+        error: error,
+        message: 'Erro ao listar as cotasBoletos'
+    })
+    }
+  
+  }
 
   async exibirCotaBoletoPorTempo(req: Request, res: Response) {
 
