@@ -26,6 +26,7 @@ export class UpdateBoletoController {
         const cotaBoleto = await prismaClient.cotaBoleto.create(
           {
             data: {
+              contrato_id:contrato_id,
               dataPagamento: dp,
               porcentagemComissao: 0.01,
               ValorBoleto: valor * 0.01,

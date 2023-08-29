@@ -166,15 +166,17 @@ export class ReadBoletoController {
   async exibirBoletosfechadosPorDataEColabordor(req: Request, res: Response) {
 
     try {
-
       const {dataInicio, dataFim, colaborador_uuid} = req.body
-      
+console.log(colaborador_uuid)
       const boletos = await prismaClient.boleto.findMany({
         where: {
           isPago: true,
+          parcela:{
+            lte:4
+          },
           dataPagamento:{
-            gte: dataInicio,
-            lt: dataFim
+            contains: dataInicio,
+            
           },
           Contrato:{
             colaborador_uuid: colaborador_uuid

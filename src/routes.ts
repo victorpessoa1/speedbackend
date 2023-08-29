@@ -61,6 +61,8 @@ import { CreateFuncaoColaboradorController } from './controllers/funcaocolaborad
 import { DeleteFuncaoColaboradorController } from './controllers/funcaocolaborador/DeleteFuncaoColaboradorController';
 import { ReadFuncaoColaboradorController } from './controllers/funcaocolaborador/ReadFuncaoColaboradorController';
 import { UpdateFuncaoColaboradorController } from './controllers/funcaocolaborador/UpdateFuncaoColaboradorController';
+import { CreateCotaContratoController } from './controllers/cotaContrato/CreateCotaContratoController';
+import { CreateCotaBoletoController } from './controllers/cotaBoleto/CreateCotaBoletoController';
 
 const router = Router()
 
@@ -121,6 +123,7 @@ router.get("/colaboradores", readColaborador.colaboradores)
 router.get("/colaboradoresativos", readColaborador.colaboradoresAtivos)
 router.get("/colaboradoresinativos", readColaborador.colaboradoresInativos)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
+router.get("/colaboradoresCota", readColaborador.colaboradoresCotas)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.put("/atualizalogin/:colaborador_uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
@@ -209,6 +212,7 @@ router.post("/cadastrarboleto", createBoleto.handle)
 router.post("/cadastrarboletos/", createBoleto.criarvariosboletos)
 router.get("/boletos", readBoleto.exibirBoletos)
 router.get("/boletosabertosdecolaborador/:colaborador_uuid", readBoleto.exibirBoletosAbertosDeUmColaborador)
+router.get("/exibirBoletosfechadosPorDataEColabordor/:colaborador_uuid", readBoleto.exibirBoletosfechadosPorDataEColabordor)
 router.get("/boletosabertosdecliente/:cliente_uuid", readBoleto.exibirBoletosAbertosDeUmCliente)
 router.put("/atualizarboleto/:boleto_id", updateBoleto.update)
 router.delete("/deletarboleto/:boleto_id", deleteBoleto.delete)
@@ -267,6 +271,7 @@ const updateCota = new UpdateCotaController
 const deleteCota = new DeleteCotaController
 
 router.post("/cadastrarcota", createCota.handle)
+router.post("/cadastrarvariascotas", createCota.handle)
 router.get("/cotas", readCota.exibirCotas)
 router.get("/cota/id", readCota.exibirCota)
 router.put("/atualizarcota/:uuid", updateCota.update)
@@ -282,5 +287,15 @@ router.post("/cadastrartipoconsorcio", createTipoConsorcio.handle)
 router.get("/tiposconsorcio", readTipoConsorcio.exibirTipoConsorcio)
 router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
 router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
+
+const createCotaContratoController = new CreateCotaContratoController
+
+router.post("/cadastrarvariascotascontrato",createCotaContratoController.criarvarios)
+router.post("/cadastrarcotacontrato",createCotaContratoController.handle)
+
+const createCotaBoletoController = new CreateCotaBoletoController
+
+router.post("/cadastrarvariascotasboleto",createCotaBoletoController.criarvarios)
+router.post("/cadastrarcotasboleto",createCotaBoletoController.handle)
 
 export {router}
