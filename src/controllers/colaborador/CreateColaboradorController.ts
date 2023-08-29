@@ -36,23 +36,24 @@ export class CreateColaboradorController {
             endereco
           }
         },
-        DPessoaisColaborador: {
-          create: {
-            dataEmissao,
-            localemissao,
-            eCivel,
-            nascimento,
-            oExpedidor,
-            rg,
-            sexo,
-            id_botconversa
-          }
-        }
+        // DPessoaisColaborador: {
+        //   create: {
+        //     dataEmissao,
+        //     localemissao,
+        //     eCivel,
+        //     nascimento,
+        //     oExpedidor,
+        //     rg,
+        //     sexo,
+        //     id_botconversa
+        //   }
+        // }
       }
     })
     return res.status(201).json(colaborador)
   }
   catch (error) {
+  console.log(error)
     return res.status(400).json({
       error: error,
       message: 'erro ao criar colaborador'

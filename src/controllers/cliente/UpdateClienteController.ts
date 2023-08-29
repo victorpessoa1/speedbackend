@@ -11,7 +11,7 @@ export class UpdateClienteController {
 
     try {
     const {nomeCompleto, cpf, isAtivo, dataEmissao, localemissao, eCivel, nascimento, oExpedidor, rg, sexo,
-      profissao, rendimento, email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua} = req.body  
+      profissao, rendimento, email, celular, whatsapp, bairro, cep, cidade, endereco, estado, pais, rua,colaborador_uuid} = req.body  
     const {uuid} = req.params    
 
       try {
@@ -38,6 +38,7 @@ export class UpdateClienteController {
                 nomeCompleto,
                 cpf,
                 isAtivo,
+                colaborador_uuid,
                 DPessoaisCliente:{
                   update: {
                     where: { cliente_uuid: uuid, },
@@ -82,6 +83,7 @@ export class UpdateClienteController {
         if (err) return console.error(err, "erro ao deletar documento")
         console.log('documento deletado com sucesso')
       })
+      console.log(error)
       return res.status(500).json({ 
         error: error, 
         message: "Erro ao atualizar cliente" 

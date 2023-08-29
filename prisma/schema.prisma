@@ -238,7 +238,7 @@ model Contrato {
   tipoConsorcio            TipoConsorcio   @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_descricao  String
   StatusContrato           StatusContrato? @relation(fields: [statusContrato_descricao], references: [statusDescricao], onDelete: NoAction, onUpdate: NoAction)
-  statusContrato_descricao String?         @default("Aguardando Cadastro")
+  statusContrato_descricao String?        
   financeira               Financeira      @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
   financeira_id            Int
   banco                    String?
