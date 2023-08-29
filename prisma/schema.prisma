@@ -314,7 +314,7 @@ model HistoricoContrato {
 
   Boleto           Boleto[]
   Contemplacao     Contemplacao[]
-  CotaContrato     CotaContrato[]
+
   statusContratoId Int?
   TipoConsorcio    TipoConsorcio? @relation(fields: [tipoConsorcioId], references: [id])
   tipoConsorcioId  Int?
@@ -399,8 +399,6 @@ model CotaContrato {
   porcentagemComissao Float
   dataPagamento       DateTime
   ValorContrato       Float
-  HistoricoContrato   HistoricoContrato? @relation(fields: [historicoContratoId], references: [id])
-  historicoContratoId Int?
 }
 
 model CotaBoleto {
