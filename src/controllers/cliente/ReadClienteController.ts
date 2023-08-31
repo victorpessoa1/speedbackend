@@ -6,13 +6,12 @@ export class ReadClienteController {
   async documentoCliente
   (req: Request, res: Response){
     var path = require ('path');
-    const fotoDocumento = path.join('./uploads/'+req.body.nomeCompleto.replaceAll(' ', ''), req.body.nomeCompleto.replaceAll(' ', '')+'.pdf')
+    const fotoDocumento = path.join('./uploads/'+req.body.nomeCompleto.replaceAll(' ', ''), req.body.tipoDocumento+'.pdf')
    res.download(fotoDocumento,function(err){
     if(err){
       console.log(err)
-      
     }else
-    console.log('sucess')
+    console.log('sucess'+fotoDocumento)
    })
   }
 

@@ -104,7 +104,40 @@ try{
         })
 }
     
-
+try{
+    const multer = require("multer")
+    
+    const storage = multer.diskStorage({
+        destination: async (req: any, file: any, cb: any) => {
+            console.log(req.body)
+            console.log("//////////////////////////");
+            
+            const nomeCompleto = req.body.cliente_uui.replaceAll(' ', '');
+            const pasta = path.join(__dirname, '..', 'uploads', nomeCompleto);
+            
+            try {
+                await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
+                cb(null, pasta);
+              } catch (err) {
+                cb(err, null);
+              }        
+            
+        },
+        filename: (req: any, file: any, cb: any) => {
+            cb(null, file.originalname);
+        }
+    })
+    
+    var uploadDocs = multer ({ 
+        storage: storage,
+     })
+}catch(error) {
+    console.log(
+        { 
+        error: error,
+        message: "Falha ao criar cliente"
+        })
+}
 ///////////////////////////////////////////////
 
 const createColaborador = new CreateColaboradorController
@@ -159,6 +192,7 @@ const deleteCliente = new DeleteClienteController
 
 router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
+router.post("/clienteUpload",uploadDocs.array('fotoDocumento', 7),createCliente.uploadDocumento)
 router.get("/clientesDocumento", readCliente.documentoCliente)
 router.get("/clientesativos", readCliente.clientesAtivos)
 router.get("/clientesinativos", readCliente.clientesInativos)
