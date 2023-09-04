@@ -7,6 +7,13 @@ export class ReadBoletoController {
 
     try {
       const boletos = await prismaClient.boleto.findMany({
+        where:{
+          Contrato:{
+            statusContrato_descricao:{
+              not: 'Cancelado'
+            }
+          }
+        },
         include:{
           Contrato: {
             include: {
