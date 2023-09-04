@@ -5,18 +5,17 @@ export class UpdateTarefaController {
 
   async update(req: Request, res: Response) {
     const {uuid} = req.params
-
-   
+    
     const tarefaantiga = await prismaClient.tarefas.findUnique({
       where: {uuid}
     })
-
     if (!tarefaantiga)
     {
       return res.status(404).json({
        message: "tarefa inexistente" 
       })
     }
+
     
     const {movimentacao} = req.body
 
