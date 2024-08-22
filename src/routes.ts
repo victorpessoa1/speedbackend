@@ -61,6 +61,10 @@ import { CreateFuncaoColaboradorController } from './controllers/funcaocolaborad
 import { DeleteFuncaoColaboradorController } from './controllers/funcaocolaborador/DeleteFuncaoColaboradorController';
 import { ReadFuncaoColaboradorController } from './controllers/funcaocolaborador/ReadFuncaoColaboradorController';
 import { UpdateFuncaoColaboradorController } from './controllers/funcaocolaborador/UpdateFuncaoColaboradorController';
+import { CreateCotaContratoController } from './controllers/cotaContrato/CreateCotaContratoController';
+import { CreateCotaBoletoController } from './controllers/cotaBoleto/CreateCotaBoletoController';
+import { ReadCotaContratoController } from './controllers/cotaContrato/ReadCotaContratoController';
+import { ReadCotaBoletoController } from './controllers/cotaBoleto/ReadCotaBoletoController';
 
 const router = Router()
 
@@ -100,7 +104,40 @@ try{
         })
 }
     
-
+try{
+    const multer = require("multer")
+    
+    const storage = multer.diskStorage({
+        destination: async (req: any, file: any, cb: any) => {
+            console.log(req.body)
+            console.log("//////////////////////////");
+            
+            const nomeCompleto = req.body.cliente_uui.replaceAll(' ', '');
+            const pasta = path.join(__dirname, '..', 'uploads', nomeCompleto);
+            
+            try {
+                await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
+                cb(null, pasta);
+              } catch (err) {
+                cb(err, null);
+              }        
+            
+        },
+        filename: (req: any, file: any, cb: any) => {
+            cb(null, file.originalname);
+        }
+    })
+    
+    var uploadDocs = multer ({ 
+        storage: storage,
+     })
+}catch(error) {
+    console.log(
+        { 
+        error: error,
+        message: "Falha ao criar cliente"
+        })
+}
 ///////////////////////////////////////////////
 
 const createColaborador = new CreateColaboradorController
@@ -121,6 +158,7 @@ router.get("/colaboradores", readColaborador.colaboradores)
 router.get("/colaboradoresativos", readColaborador.colaboradoresAtivos)
 router.get("/colaboradoresinativos", readColaborador.colaboradoresInativos)
 router.get("/colaborador/:uuid", readColaborador.colaborador)
+router.get("/colaboradoresCota", readColaborador.colaboradoresCotas)
 router.put("/atualizarcolaborador/:uuid", updateColaborador.update)
 router.put("/atualizalogin/:colaborador_uuid", atualizalogin.update)
 router.delete("/deletarcolaborador/:uuid", deleteColaborador.delete)
@@ -154,6 +192,8 @@ const deleteCliente = new DeleteClienteController
 
 router.post("/cadastrarcliente/:colaborador_uuid", upload.array('fotoDocumento', 7) , createCliente.handle)
 router.get("/clientes", readCliente.clientes)
+router.post("/clienteUpload",uploadDocs.array('fotoDocumento', 7),createCliente.uploadDocumento)
+router.get("/clientesDocumento", readCliente.documentoCliente)
 router.get("/clientesativos", readCliente.clientesAtivos)
 router.get("/clientesinativos", readCliente.clientesInativos)
 router.get("/clientestotal", readCliente.clientestotal)
@@ -208,6 +248,7 @@ router.post("/cadastrarboleto", createBoleto.handle)
 router.post("/cadastrarboletos/", createBoleto.criarvariosboletos)
 router.get("/boletos", readBoleto.exibirBoletos)
 router.get("/boletosabertosdecolaborador/:colaborador_uuid", readBoleto.exibirBoletosAbertosDeUmColaborador)
+router.get("/exibirBoletosfechadosPorDataEColabordor/:colaborador_uuid", readBoleto.exibirBoletosfechadosPorDataEColabordor)
 router.get("/boletosabertosdecliente/:cliente_uuid", readBoleto.exibirBoletosAbertosDeUmCliente)
 router.put("/atualizarboleto/:boleto_id", updateBoleto.update)
 router.delete("/deletarboleto/:boleto_id", deleteBoleto.delete)
@@ -266,6 +307,7 @@ const updateCota = new UpdateCotaController
 const deleteCota = new DeleteCotaController
 
 router.post("/cadastrarcota", createCota.handle)
+router.post("/cadastrarvariascotas", createCota.handle)
 router.get("/cotas", readCota.exibirCotas)
 router.get("/cota/id", readCota.exibirCota)
 router.put("/atualizarcota/:uuid", updateCota.update)
@@ -281,5 +323,17 @@ router.post("/cadastrartipoconsorcio", createTipoConsorcio.handle)
 router.get("/tiposconsorcio", readTipoConsorcio.exibirTipoConsorcio)
 router.put("/atualizartipoconsorcio/:id", updateTipoConsorcio.update)
 router.delete("/deletartipoconsorcio/:id", deleteTipoConsorcio.delete)
+
+const createCotaContratoController = new CreateCotaContratoController
+const readCotaContrato = new ReadCotaContratoController
+router.post("/cadastrarvariascotascontrato",createCotaContratoController.criarvarios)
+router.post("/cadastrarcotacontrato",createCotaContratoController.handle)
+router.get("/exibirCotaContratoDoColaboradorPeriodo/:uuid",readCotaContrato.exibirCotaContratoDoColaboradorPeriodo)
+
+const createCotaBoletoController = new CreateCotaBoletoController
+const readCotaBoleto = new ReadCotaBoletoController
+router.post("/cadastrarvariascotasboleto",createCotaBoletoController.criarvarios)
+router.post("/cadastrarcotasboleto",createCotaBoletoController.handle)
+router.get("/exibirCotaBoletoPorTempo",readCotaBoleto.exibirCotaBoletoDoColaboradorPorTempo)
 
 export {router}

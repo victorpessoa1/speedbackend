@@ -18,7 +18,7 @@ model Colaborador {
   isAtivo      Boolean
   Funcao       Funcao? @relation(fields: [funcaoUuid], references: [uuid])
   funcaoUuid   String?
-
+  idBotConversa String? 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
@@ -238,7 +238,7 @@ model Contrato {
   tipoConsorcio            TipoConsorcio   @relation(fields: [tipoConsorcio_descricao], references: [descricao], onDelete: NoAction, onUpdate: NoAction)
   tipoConsorcio_descricao  String
   StatusContrato           StatusContrato? @relation(fields: [statusContrato_descricao], references: [statusDescricao], onDelete: NoAction, onUpdate: NoAction)
-  statusContrato_descricao String?
+  statusContrato_descricao String?        
   financeira               Financeira      @relation(fields: [financeira_id], references: [financeira_id], onDelete: NoAction, onUpdate: NoAction)
   financeira_id            Int
   banco                    String?
@@ -268,6 +268,7 @@ model Contrato {
   Boleto            Boleto[]
   Contemplacao      Contemplacao[]
   CotaContrato      CotaContrato[]
+  CotaBoleto        CotaBoleto[]
   HistoricoContrato HistoricoContrato[]
 }
 
@@ -313,7 +314,7 @@ model HistoricoContrato {
 
   Boleto           Boleto[]
   Contemplacao     Contemplacao[]
-  CotaContrato     CotaContrato[]
+
   statusContratoId Int?
   TipoConsorcio    TipoConsorcio? @relation(fields: [tipoConsorcioId], references: [id])
   tipoConsorcioId  Int?
@@ -398,14 +399,14 @@ model CotaContrato {
   porcentagemComissao Float
   dataPagamento       DateTime
   ValorContrato       Float
-  HistoricoContrato   HistoricoContrato? @relation(fields: [historicoContratoId], references: [id])
-  historicoContratoId Int?
 }
 
 model CotaBoleto {
   uuid                String      @id @default(uuid())
   colaborador         Colaborador @relation(fields: [colaborador_uuid], references: [uuid], onDelete: Cascade, onUpdate: Cascade)
   colaborador_uuid    String
+  Contrato            Contrato?    @relation(fields: [contrato_id], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  contrato_id         Int?         
   boleto              Boleto      @relation(fields: [boleto_id], references: [boleto_id], onDelete: Cascade, onUpdate: Cascade)
   boleto_id           Int
   porcentagemComissao Float

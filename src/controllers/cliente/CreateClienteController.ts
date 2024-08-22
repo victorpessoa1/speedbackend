@@ -60,6 +60,7 @@ export class CreateClienteController {
       
     } 
     catch (error) {
+      console.log(error)
       fs.remove(fotoDocumento, (err: any) => {
         if (err) return console.error(err, "erro ao deletar documento")
         console.log('documento deletado com sucesso')
@@ -71,5 +72,44 @@ export class CreateClienteController {
       })
     }
   
+  }
+  async uploadDocumento(req: Request, res: Response){
+    const {client_uuid} = req.body
+    try{
+      const multer = require("multer")
+      
+      const storage = multer.diskStorage({
+          destination: async (req: any, file: any, cb: any) => {
+              console.log(req.body)
+              console.log("//////////////////////////");
+              
+           //   const nomeCompleto = req.body.nomeCompleto.replaceAll(' ', '');
+              const pasta = path.join(__dirname, '..', 'uploads', client_uuid);
+              
+              try {
+                  await fs.ensureDir(pasta); // Verifica se a pasta existe e cria caso não exista
+                  cb(null, pasta);
+                } catch (err) {
+                  cb(err, null);
+                }        
+              
+          },
+          filename: (req: any, file: any, cb: any) => {
+              cb(null, file.originalname);
+          }
+      })
+      
+      var upload = multer ({ 
+          storage: storage,
+       })
+       return res.status(201).json({message: "Cliente criado com sucesso"}) 
+  }catch(error) {
+      console.log(
+          { 
+          error: error,
+          message: "Falha ao criar cliente"
+          })
+          return res.status(500).json({ message: "Documento nao inserido"}) 
+  }
   }
 }
